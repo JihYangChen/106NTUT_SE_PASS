@@ -1,0 +1,120 @@
+html {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: "Microsoft JhengHei";
+    background-color: #F6F6F6;
+}
+
+.bodyDiv {
+    width: 1280px;
+    border: 2px solid white;
+    margin:0 auto;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a div:hover {
+    cursor: pointer;
+    color: #429488;
+}
+
+a label:hover {
+    cursor: pointer;
+    color: #429488;
+}
+
+#leftInfoBanner {
+    margin-top: 20px;
+    width: 25%;
+    height: 90%;
+    display: inline-block;
+    background-color: #FFFFFF;
+    box-shadow: 6px 6px 15px grey;
+}
+
+#leftInfoBanner hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#photoDiv img {
+    width: 100%;
+}
+
+#infoDiv {
+    padding: 10%;
+}
+
+#nameDiv label:first-child {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.icon {
+    width: 30px;
+}
+
+#nameDiv label:nth-child(2) {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#individualDiv label{
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 6px;
+}
+
+#logoutDiv img {
+    width: 25px;
+    margin-left: 3px;
+}
+
+#logoutDiv label {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 3px;
+    margin-left: 5px;
+}
+
+.courseShortcutDiv label:first-child {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.courseShortcutDiv label:nth-child(3) {
+    font-size: 13px;
+    line-height: 20px;
+    color: #595959;
+}
+
+.courseShortcutDiv label:nth-child(4) {
+    font-size: 13px;
+    line-height: 20px;
+    color: #595959;
+    float: right;
+    margin-right: 20px;
+}
+
+
+
+
+
+
+
+
+#footer {
+    background-color: #429488;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    position:absolute;
+    bottom:0;
+    left:0;
+    padding-top: 10px;
+}
