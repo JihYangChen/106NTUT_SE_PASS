@@ -45,6 +45,7 @@ nav li a {
 
 nav a:hover:not(.active) {
     background-color: #0f7c6c;
+    color: white;
 }
 
 #topBannerImg {
@@ -53,7 +54,7 @@ nav a:hover:not(.active) {
 }
 
 #title {
-    font-size: 25px;
+    font-size: 27px;
     margin: 20px 30px;
     font-weight: 500;
 }

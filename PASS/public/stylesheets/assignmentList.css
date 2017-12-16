@@ -1,0 +1,118 @@
+#addAssignment {
+    font-size: 17px;
+    color: #429488;
+    font-weight: bold;
+    float: right;
+    margin-right: 140px;
+    margin-bottom: 15px;
+}
+
+#addAssignment:hover {
+    color: #4186c7;
+}
+
+#assignmentListDiv {
+    margin: 50px 80px;
+}
+
+
+#assignmentListDiv div {
+    display: inline-block;
+}
+
+#assignmentImg {
+    margin-left: 30px;
+    width: 80px;
+}
+
+.assignmentInfo {
+    width: 300px;
+    margin-left: 20px;
+}
+
+.assignmentName {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.assignmentHangIn {
+    font-size: 18px;
+    color: #595959;
+}
+
+.assignmentNotHangIn {
+    font-size: 18px;
+    margin-left: 20px;
+    color: #595959;
+}
+
+.assignmentDate {
+    line-height: 30px;
+    font-size: 16px;
+    color: #595959;
+}
+
+.status {
+    vertical-align: top;
+    margin-top: 40px;
+}
+
+.status label {
+    display: block;
+    width: 80px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.haventStart {
+    border: 2px solid#DE8244;
+    color: #DE8244;
+}
+
+.proceeding {
+    border: 2px solid#5E803F;
+    color: #5E803F;
+}
+
+.hasDone {
+    border: 2px solid#B02318;
+    color: #B02318;
+}
+
+.manageAssignment {
+    margin-left: 90px;
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 10px;
+    vertical-align: top;
+}
+
+.editAssignment img {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.deleteAssignment img {
+    width: 25px;
+    vertical-align: middle;
+}
+
+.editAssignment label {
+    margin-left: 3px;
+    color: #595959;
+}
+
+.deleteAssignment label {
+    color: #595959;
+}
+
+.manageAssignment label:hover {
+    color: #429488;
+}
+
+#assignmentListDiv hr {
+    margin-top: 20px;
+    margin-bottom: 20;
+}

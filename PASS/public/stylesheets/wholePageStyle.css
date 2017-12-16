@@ -9,9 +9,8 @@ html {
 .bodyDiv {
     width: 1280px;
     /* border: 2px solid white; */
-    margin:0 auto;
+    margin: 0 auto;
 }
-
 
 a {
     text-decoration: none;
@@ -25,5 +24,4 @@ a div:hover {
 
 a label:hover {
     cursor: pointer;
-    color: #429488;
 }
