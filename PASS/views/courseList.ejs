@@ -3,6 +3,9 @@
         <title>PASS</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/stylesheets/courseList.css">
+        <link rel="stylesheet" href="/stylesheets/wholePageStyle.css">
+        <link rel="stylesheet" href="/stylesheets/leftInfoBanner.css">
+        <link rel="stylesheet" href="/stylesheets/footer.css">
      </head>
      <body>
         <div class = bodyDiv>
@@ -49,7 +52,7 @@
                     <hr>
 
                     <div id = "courseShortcutListDiv">
-                        <a href="/">
+                        <a href="/assignmentList">
                             <div class = "courseShortcutDiv">
                                 <label>物件導向程式設計</label>
                                 <br>
@@ -60,7 +63,7 @@
 
                         <hr>
                         
-                        <a href="/">
+                        <a href="/assignmentList">
                             <div class = "courseShortcutDiv">
                                 <label>視窗程式設計</label>
                                 <br>
@@ -71,7 +74,7 @@
 
                         <hr>
 
-                        <a href="/">
+                        <a href="/assignmentList">
                             <div class = "courseShortcutDiv">
                                 <label>物件導向分析與設計</label>
                                 <br>
@@ -83,7 +86,61 @@
                         <hr>
                     </div>
                 </div>
-            </div>   
+            </div>
+
+            <div id="mainDiv">
+                <div id="pageTitle">
+                    <label>課程列表</label>
+                </div>
+
+                <div id="courseListDiv">
+                    <a href="/assignmentList">
+                        <div class="course">
+                            <img src="/image/course.png" alt="course">
+                            <div class="courseInfo">
+                                <label class="courseSemester">106學年度 上學期</label>
+                                <br>
+                                <label class="courseName">物件導向程式設計</label>
+                                <br>
+                                <label class="courseClass">資工二</label>
+                            </div>
+                        </div>
+                    </a>
+                    <hr>
+
+
+                     <a href="assignmentList">
+                        <div class="course">
+                            <img src="/image/course.png" alt="course">
+                            <div class="courseInfo">
+                                <label class="courseSemester">106學年度 上學期</label>
+                                <br>
+                                <label class="courseName">視窗程式設計</label>
+                                <br>
+                                <label class="courseClass">資工三</label>
+                            </div>
+                        </div>
+                    </a>
+                    <hr>
+
+                    <a href="assignmentList">
+                        <div class="course">
+                            <img src="/image/course.png" alt="course">
+                            <div class="courseInfo">
+                                <label class="courseSemester">106學年度 上學期</label>
+                                <br>
+                                <label class="courseName">物件導向分析與設計</label>
+                                <br>
+                                <label class="courseClass">資工碩一</label>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+
+                </div>
+            </div>
+
         </div>
 
         <footer id = "footer">

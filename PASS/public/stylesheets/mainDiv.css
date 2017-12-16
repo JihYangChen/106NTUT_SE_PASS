@@ -1,0 +1,59 @@
+/* mainDiv */
+
+#mainDiv {
+    vertical-align: top;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 73%;
+    height: 90%;
+    display: inline-block;
+    background-color: #FFFFFF;
+    box-shadow: 6px 6px 15px grey;
+}
+
+nav {
+    background-color: #429488;
+}
+
+#courseName {
+    padding: 13px 20px;
+    float: left;
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+nav ul {
+    font-size: 18px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: right;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+nav a:hover:not(.active) {
+    background-color: #0f7c6c;
+}
+
+#topBannerImg {
+    width: 100%;
+    margin-top: -0.87px;
+}
+
+#title {
+    font-size: 25px;
+    margin: 20px 30px;
+    font-weight: 500;
+}

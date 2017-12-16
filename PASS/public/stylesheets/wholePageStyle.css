@@ -1,0 +1,29 @@
+/* Whole page */
+
+html {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: "Microsoft JhengHei";
+    background-color: #F6F6F6;
+}
+
+.bodyDiv {
+    width: 1280px;
+    /* border: 2px solid white; */
+    margin:0 auto;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a div:hover {
+    cursor: pointer;
+    color: #429488;
+}
+
+a label:hover {
+    cursor: pointer;
+    color: #429488;
+}
