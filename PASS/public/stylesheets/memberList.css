@@ -1,0 +1,69 @@
+#memberListDiv {
+    margin: 30px 100px;
+    height: 60%;
+    overflow: auto;
+}
+
+#memberListDiv div {
+    display: inline-block;
+}
+
+.taContainerDiv {
+    width: 100%;
+}
+
+.memberImg {
+    margin-left: 20px;
+    width: 60px;
+}
+
+.memberInfo {
+    margin-left: 20px;
+    margin-top: 8px;
+    vertical-align: top;
+}
+
+.memberName {
+    font-size: 22.5px;
+    font-weight: bold;
+}
+
+.memberId {
+    font-size: 15px;
+    color: #595959;
+}
+
+.memberClass {
+    font-size: 15px;
+    margin-left: 22px;
+    color: #595959;
+}
+
+.memberMail {
+    font-size: 15px;
+    margin-left: 22px;
+    color: #595959;
+}
+
+.taLabel {
+    display: inline-block;
+    width: 50px;
+    padding: 2px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid#DE8244;
+    color: #DE8244;
+    margin-left: 25px;
+    vertical-align: top;
+    margin-top: 4px;
+}
+
+.studentContainerDiv {
+    width: 100%;
+    margin-top: 50px;
+}
+
+hr {
+    margin-top: 10px;
+}

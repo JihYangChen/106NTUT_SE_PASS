@@ -1,3 +1,14 @@
+#assignmentListDiv {
+    margin: 50px 80px;
+    height: 55%;
+    width: 85%;
+    overflow: auto;
+}
+
+#assignmentListDiv div {
+    display: inline-block;
+}
+
 #addAssignment {
     font-size: 17px;
     color: #429488;
@@ -9,15 +20,6 @@
 
 #addAssignment:hover {
     color: #4186c7;
-}
-
-#assignmentListDiv {
-    margin: 50px 80px;
-}
-
-
-#assignmentListDiv div {
-    display: inline-block;
 }
 
 #assignmentImg {
