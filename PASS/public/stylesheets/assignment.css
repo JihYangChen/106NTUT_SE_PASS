@@ -1,0 +1,101 @@
+#assignmentDiv {
+    margin: 30px 100px;
+    text-align: center;
+}
+
+#topButton {
+    width: 80px;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid#DE8244;
+    color: #DE8244;
+    vertical-align: top;
+    float: right;
+    margin: 10px 80px 0px 25px;
+}
+
+#topButton:hover {
+    background-color: #DE8244;
+    color: white;
+}
+
+#assignmentDiv table {
+    width: 90%;
+    border-collapse: collapse; 
+}
+
+#assignmentDiv table td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 85%;
+}
+
+#assignmentDiv table tr {
+    border-bottom: 1px solid #b6b5b5;
+}
+
+#assignmentDiv table th {
+    width: 15%;
+    text-align: left;
+}
+
+#assignmentDiv table tr:last-child {
+    border-bottom: none;
+}
+
+
+.status {
+    vertical-align: top;
+    margin-top: 40px;
+}
+
+.status label {
+    display: block;
+    width: 60px;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.haventStart {
+    border: 1px solid#DE8244;
+    color: #DE8244;
+}
+
+.proceeding {
+    border: 1px solid#5E803F;
+    color: #5E803F;
+}
+
+.hasDone {
+    border: 1px solid#B02318;
+    color: #B02318;
+}
+
+.whiteButton {
+    text-align: center;
+    line-height: 28px;
+    display: inline-block;
+    color: #429488;
+    background-color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid#429488;
+    margin-top: 10px;
+    margin-left: 36%;
+}
+
+.whiteButton:hover {
+    background-color: #429488;
+    color: white;
+    cursor: pointer;
+}
+
+#exitBtn {
+    margin-left: 20px;
+}

@@ -29,4 +29,12 @@ router.get('/correct', function(req, res, next) {
 router.get('/createAssignment', function(req, res, next) {
   res.render('createAssignment', { title: 'Express' });
 });
+
+router.get('/assignment', function(req, res, next) {
+  res.render('assignment', { title: 'Express' });
+});
+
+router.get('/editAssignment', function(req, res, next) {
+  res.render('editAssignment', { title: 'Express' });
+});
 module.exports = router;
