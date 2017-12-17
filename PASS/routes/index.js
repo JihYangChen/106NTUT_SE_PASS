@@ -25,4 +25,8 @@ router.get('/memberList', function(req, res, next) {
 router.get('/correct', function(req, res, next) {
   res.render('correct', { title: 'Express' });
 });
+
+router.get('/createAssignment', function(req, res, next) {
+  res.render('createAssignment', { title: 'Express' });
+});
 module.exports = router;

@@ -61,13 +61,19 @@
 }
 
 input[type=submit] {
-    color: white;
-    background-color: #429488;
+    color: #429488;
+    background-color: white;
     width: 100px;
-    height: 40x;
+    height: 30px;
     font-size: 14px;
     border-radius: 5px;
-    border: 1.5px solid#429488;
+    border: 1px solid#429488;
     margin-top: 7px;
     margin-left: 45%;
+}
+
+input[type=submit]:hover {
+    background-color: #429488;
+    color: white;
+    cursor: pointer;
 }

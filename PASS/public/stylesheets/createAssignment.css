@@ -1,0 +1,50 @@
+#assignmentDiv {
+    margin: 30px 100px;
+    text-align: center;
+}
+
+#assignmentDiv table {
+    border-collapse: collapse; 
+}
+
+#assignmentDiv table td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 85%;
+}
+
+#assignmentDiv table tr {
+    border-bottom: 1px solid #b6b5b5;
+}
+
+#assignmentDiv table th {
+    width: 15%;
+    text-align: left;
+}
+
+#assignmentDiv table tr:last-child {
+    border-bottom: none;
+}
+
+input[type=submit] {
+    display: inline-block;
+    color: #429488;
+    background-color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid#429488;
+    margin-top: 30px;
+    margin-left: 36%;
+}
+
+input[type=submit]:hover {
+    background-color: #429488;
+    color: white;
+    cursor: pointer;
+}
+
+#exitBtn {
+    margin-left: 20px;
+}
