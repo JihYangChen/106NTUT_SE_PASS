@@ -37,4 +37,8 @@ router.get('/assignment', function(req, res, next) {
 router.get('/editAssignment', function(req, res, next) {
   res.render('editAssignment', { title: 'Express' });
 });
+
+router.get('/stastic', function(req, res, next) {
+  res.render('stastic', { title: 'Express' });
+});
 module.exports = router;
