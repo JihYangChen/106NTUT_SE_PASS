@@ -20,7 +20,9 @@ router.get('/course', function(req, res, next) {
 
 router.get('/courseList', function(req, res, next) {
     console.log("Tansfer courseListPage.");
-    res.render('courseList', { user : req.session.user });
+    user.findById(req.session.user).exec( function(err, _user) {
+      res.render('courseList', { user : _user });
+    })
 });
 
 router.get('/assignmentList', function(req, res, next) {

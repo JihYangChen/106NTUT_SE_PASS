@@ -8,7 +8,7 @@
         $(document).ready(function(){
             $("#loginBtn").click(function(){
                 $.post("/login", {
-                    email : $("#idText").val(),
+                    account : $("#idText").val(),
                     password : $("#pwdText").val()
                 }, function(data, status){
                     if(data == "success") document.location.href = "/pass/courseList";
@@ -24,8 +24,8 @@
                     <img src="/image/dot.png">
                 </div>
                 <div id="rightDiv">
-                    <input type="text" class="accountText" id="idText" name="email" placeholder="ID">
-                    <input type="text" class="accountText" id="pwdText" name="password" placeholder="Password">
+                    <input type="text" class="accountText" id="idText" name="account" placeholder="ID">
+                    <input type="password" class="accountText" id="pwdText" name="password" placeholder="Password">
                     <br>
                     <button id="loginBtn">login</button>
                 </div>

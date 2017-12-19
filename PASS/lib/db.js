@@ -1,13 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
- var userSchema = new Schema({
+var userSchema = new Schema({
+    account: {type: String, required: true},
     name : { type : String, required : true },
     password : { type : String, required : true },
     email : { type : String, required : true },
     tel : { type : String },
     website : { type : String },
-    classid : { type: Schema.Types.ObjectId, ref:'department' }
+    classid : { type: Schema.Types.ObjectId, ref:'department' },
+    userType : { type: String, required: true }
 }, { collection: 'user' });
 
 var departmentSchema = new Schema({

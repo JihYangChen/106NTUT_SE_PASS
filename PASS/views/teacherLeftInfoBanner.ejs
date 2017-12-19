@@ -1,6 +1,10 @@
 <div id="leftInfoBanner">
     <div id="photoDiv">
-        <img src="/image/wkc.png" alt="wkc">
+        <% if (user.userType == "teacher") { %>
+            <img src="/image/wkc.png" alt="email" class="icon">
+        <% } else { %>
+            <img src="/image/studentImg.png" alt="email" class="icon">
+        <% } %>
     </div>
     <div id="infoDiv">
         <div id="nameDiv">
