@@ -1,0 +1,53 @@
+#stasticDiv {
+    margin: 30px 100px;
+    text-align: center;
+}
+
+#stasticDiagramDiv {
+    width: 88%;
+    float: left;
+}
+
+#stasticDiagramDiv img {
+    width: 100%;
+}
+
+#submenu {
+    width:10%;
+    float: right;
+}
+
+.submenuButton {
+    text-align: center;
+    line-height: 28px;
+    display: inline-block;
+    color: #429488;
+    background-color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid#429488;
+    margin-top: 30px;
+    margin-left: 35%;
+}
+
+.submenuButton:hover {
+    background-color: #429488;
+    color: white;
+    cursor: pointer;
+}
+
+.firstSubButton {
+    margin-top: 10px;
+}
+
+#onFocus {
+    background-color: #429488;
+    color: white;
+}
+
+#onFocus {
+    background-color: #429488;
+    color: white;
+}
