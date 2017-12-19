@@ -1,14 +1,94 @@
+<% if (user.userType == "teacher") { %>
 <div id="leftInfoBanner">
     <div id="photoDiv">
-        <% if (user.userType == "teacher") { %>
-            <img src="/image/wkc.png" alt="email" class="icon">
-        <% } else { %>
-            <img src="/image/studentImg.png" alt="email" class="icon">
-        <% } %>
+        <img src="/image/wkc.png" alt="email" class="icon">
     </div>
     <div id="infoDiv">
         <div id="nameDiv">
-            <label>陳偉凱</label>
+            <label><%= user.name %></label>
+            <label>老師</label>
+        </div>
+
+        <hr>
+
+        <div id="individualDiv">
+            <div>
+                <img src="/image/email.png" alt="email" class="icon">
+                <label><%= user.email %></label>
+            </div>
+
+            <div>
+                <img src="/image/tel.png" alt="tel" class="icon">
+                <label><%= user.tel %></label>
+            </div>
+
+            <div>
+                <img src="/image/website.png" alt="website" class="icon">
+                <label><%= user.website %></label>
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="logoutDiv">
+            <a href="/">
+                <div>
+                    <img src="/image/logout.png" alt="logout">
+                    <label>登出</label>
+                </div>
+            </a>
+        </div>
+
+        <hr>
+
+        <div id="courseShortcutListDiv">
+            <a href="/pass/assignmentList">
+                <div class="courseShortcutDiv">
+                    <label>物件導向程式設計</label>
+                    <br>
+                    <label>106學年度 上學期</label>
+                    <label>資工二</label>
+                </div>
+            </a>
+
+            <hr>
+
+            <a href="/pass/assignmentList">
+                <div class="courseShortcutDiv">
+                    <label>視窗程式設計</label>
+                    <br>
+                    <label>106學年度 上學期</label>
+                    <label>資工三</label>
+                </div>
+            </a>
+
+            <hr>
+
+            <a href="/pass/assignmentList">
+                <div class="courseShortcutDiv">
+                    <label>物件導向分析與設計</label>
+                    <br>
+                    <label>106學年度 上學期</label>
+                    <label>資工碩一</label>
+                </div>
+            </a>
+
+            <hr>
+        </div>
+    </div>
+</div>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+ <% } else { %>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<div id="leftInfoBanner">
+    <div id="photoDiv">
+        <img src="/image/studentImg.png" alt="email" class="icon">
+    </div>
+    <div id="infoDiv">
+        <div id="nameDiv">
+            <label><%= user.name %></label>
             <label>老師</label>
         </div>
 
@@ -80,3 +160,4 @@
         </div>
     </div>
 </div>
+<% } %>
