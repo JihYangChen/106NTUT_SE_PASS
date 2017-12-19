@@ -1,25 +1,34 @@
 <html lang="en">
-  
   <head>
       <title>PASS</title>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="/stylesheets/index.css">
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+            $("#loginBtn").click(function(){
+                $.post("/login", {
+                    email : $("#idText").val(),
+                    password : $("#pwdText").val()
+                }, function(data, status){
+                    if(data == "success") document.location.href = "/pass/courseList";
+                    else alert(data);
+                });
+            });
+        });
+    </script>
   </head>
-  
       <body>
             <div id="loginDiv">
                 <div id="leftDiv">
                     <img src="/image/dot.png">
                 </div>
-
                 <div id="rightDiv">
-                    <input type="text" class="accountText" id="idText" placeholder="ID">
-                    <input type="text" class="accountText" id="pwdText" placeholder="Password">
+                    <input type="text" class="accountText" id="idText" name="email" placeholder="ID">
+                    <input type="text" class="accountText" id="pwdText" name="password" placeholder="Password">
                     <br>
-                    <button id="loginBtn"><a id="btnFont" href="/courseList">login</a></button>
+                    <button id="loginBtn">login</button>
                 </div>
             </div>
-          
       </body>
-  
   </html>
