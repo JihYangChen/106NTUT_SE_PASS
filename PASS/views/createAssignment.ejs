@@ -12,84 +12,8 @@
 
 <body>
     <div class="bodyDiv">
-        <div id="leftInfoBanner">
-            <div id="photoDiv">
-                <img src="/image/wkc.png" alt="wkc">
-            </div>
-            <div id="infoDiv">
-                <div id="nameDiv">
-                    <label>陳偉凱</label>
-                    <label>老師</label>
-                </div>
-
-                <hr>
-
-                <div id="individualDiv">
-                    <div>
-                        <img src="/image/email.png" alt="email" class="icon">
-                        <label>wkc@csie.ntut.edu.tw</label>
-                    </div>
-
-                    <div>
-                        <img src="/image/tel.png" alt="tel" class="icon">
-                        <label>+886-2-27712171 Ext 4230</label>
-                    </div>
-
-                    <div>
-                        <img src="/image/website.png" alt="website" class="icon">
-                        <label>http://www.ntut.edu.tw/~wkchen</label>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div id="logoutDiv">
-                    <a href="/">
-                        <div>
-                            <img src="/image/logout.png" alt="logout">
-                            <label>登出</label>
-                        </div>
-                    </a>
-                </div>
-
-                <hr>
-
-                <div id="courseShortcutListDiv">
-                    <a href="/assignmentList">
-                        <div class="courseShortcutDiv">
-                            <label>物件導向程式設計</label>
-                            <br>
-                            <label>106學年度 上學期</label>
-                            <label>資工二</label>
-                        </div>
-                    </a>
-
-                    <hr>
-
-                    <a href="/assignmentList">
-                        <div class="courseShortcutDiv">
-                            <label>視窗程式設計</label>
-                            <br>
-                            <label>106學年度 上學期</label>
-                            <label>資工三</label>
-                        </div>
-                    </a>
-
-                    <hr>
-
-                    <a href="/assignmentList">
-                        <div class="courseShortcutDiv">
-                            <label>物件導向分析與設計</label>
-                            <br>
-                            <label>106學年度 上學期</label>
-                            <label>資工碩一</label>
-                        </div>
-                    </a>
-
-                    <hr>
-                </div>
-            </div>
-        </div>
+        
+        <%- include('teacherLeftInfoBanner') -%>
 
         <div id="mainDiv">
             <nav>
@@ -152,9 +76,8 @@
         </div>
     </div>
 
-    <footer id="footer">
-        Copyright © 2017 KLLAB All rights reserved
-    </footer>
+    <%- include('footer') -%>
+    
 </body>
 
 </html>
