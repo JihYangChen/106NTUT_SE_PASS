@@ -42,38 +42,20 @@
         <hr>
 
         <div id="courseShortcutListDiv">
-            <a href="/pass/assignmentList">
-                <div class="courseShortcutDiv">
-                    <label>物件導向程式設計</label>
-                    <br>
-                    <label>106學年度 上學期</label>
-                    <label>資工二</label>
-                </div>
+
+            <% user.courses.forEach(function(course) { %>
+                <a href="/pass/assignmentList">
+                    <div class="courseShortcutDiv">
+                        <label><%= course.name %></label>
+                        <br>
+                        <label>106學年度 上學期</label>
+                        <label><%= course.classid.name %></label>
+                    </div>
+                </a>
+    
+                <hr>
+            <% }); %>
             </a>
-
-            <hr>
-
-            <a href="/pass/assignmentList">
-                <div class="courseShortcutDiv">
-                    <label>視窗程式設計</label>
-                    <br>
-                    <label>106學年度 上學期</label>
-                    <label>資工三</label>
-                </div>
-            </a>
-
-            <hr>
-
-            <a href="/pass/assignmentList">
-                <div class="courseShortcutDiv">
-                    <label>物件導向分析與設計</label>
-                    <br>
-                    <label>106學年度 上學期</label>
-                    <label>資工碩一</label>
-                </div>
-            </a>
-
-            <hr>
         </div>
     </div>
 </div>

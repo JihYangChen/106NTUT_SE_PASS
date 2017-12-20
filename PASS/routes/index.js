@@ -13,10 +13,9 @@ router.post('/login', function(req, res, next){
   user.findOne()
   .where('account').equals(req.body.account)
   .where('password').equals(req.body.password).exec(function(err, _user){
-      console.log(_user);
       if(err) next(err);
       else if(_user != null){
-        req.session.user = _user._id;
+        req.session.user = _user;
         res.send("success");
       }
       else res.send("錯誤的帳號或密碼！");

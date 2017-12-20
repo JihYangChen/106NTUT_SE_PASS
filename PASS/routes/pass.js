@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose'); 
 var user = mongoose.model('user');
+var course = mongoose.model('course');
 var department = mongoose.model('department');
 //var fs = require('fs');
 //var path = require('path');
@@ -19,9 +20,10 @@ router.get('/course', function(req, res, next) {
 });
 
 router.get('/courseList', function(req, res, next) {
-    console.log("Tansfer courseListPage.");
-    user.findById(req.session.user).exec( function(err, _user) {
-      res.render('courseList', { user : _user });
+    user.findById(req.session.user._id)
+    .populate({path: 'courses', populate: {path: 'classid'}})
+    .exec( function(err, _user) {
+      res.render('courseList', {user : _user});
     })
 });
 
