@@ -22,6 +22,7 @@ router.get('/course', function(req, res, next) {
 router.get('/courseList', function(req, res, next) {
     user.findById(req.session.user._id)
     .populate({path: 'courses', populate: {path: 'classid'}})
+    .populate('classid')
     .exec( function(err, _user) {
       res.render('courseList', {user : _user});
     })
