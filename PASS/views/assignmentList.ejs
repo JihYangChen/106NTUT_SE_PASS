@@ -102,9 +102,6 @@
                             <a href="/pass/courseList">離開課程</a>
                         </li>
                         <li>
-                            <a href="/pass/memberList">成員列表</a>
-                        </li>
-                        <li>
                             <a href="/pass/stastic">成績統計</a>
                         </li>
                         <li>
@@ -117,9 +114,17 @@
                     <label>作業管理</label>
                 </div>
     
-                <a href="/pass/createAssignment">
-                    <label id="addAssignment">+ 新增作業</label>
-                </a>
+                <div id="assignmentHeader">
+                    <div id="assignmentScore">
+                        <label>作業成績</label>
+                        <hr>
+                    </div>
+
+                    <div id="assignmentStatus">
+                        <label>狀態</label>
+                        <hr>
+                    </div>
+                </div>
     
                 <div id="assignmentListDiv">
                     <% course.assignment.forEach(function(assignment, index, assignments) { %>
@@ -147,21 +152,8 @@
                                 <% } %>
                         </div>
     
-                        <div class="manageAssignment">
-                            <a href="/pass/editAssignment">
-                                <div class="editAssignment">
-                                    <img src="/image/edit.png">
-                                    <label>編輯作業</label>
-                                </div>
-                            </a>
-                            <br>
-                            <br>
-                            <a href=#>
-                                <div class="deleteAssignment">
-                                    <img src="/image/delete.png">
-                                    <label>刪除作業</label>
-                                </div>
-                            </a>
+                        <div class="score">
+                            <label>20</label>
                         </div>
                         <% if (index != assignments.length - 1) {%>
                             <hr>

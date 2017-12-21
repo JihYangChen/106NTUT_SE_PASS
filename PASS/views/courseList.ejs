@@ -9,7 +9,6 @@
      </head>
      <body>
         <div class = "bodyDiv">
-            
             <%- include('teacherLeftInfoBanner', {user: user}) -%>
             <div id="mainDiv">
                 <div id="pageTitle">
@@ -34,9 +33,9 @@
                         <% if (index != courses.length - 1) {%>
                             <hr>
                         <% } %>
+                    <% }) %>
                 </div>
             </div>
-            <% } %>
         </div>
 
         <%- include('footer') -%>

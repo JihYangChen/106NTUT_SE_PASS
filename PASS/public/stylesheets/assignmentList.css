@@ -9,6 +9,10 @@
     display: inline-block;
 }
 
+.assignment {
+    width: 95%;
+}
+
 #addAssignment {
     font-size: 17px;
     color: #429488;
@@ -117,4 +121,32 @@
 #assignmentListDiv hr {
     margin-top: 20px;
     margin-bottom: 20;
+}
+
+#assignmentHeader {
+    margin-right: 14%;
+}
+
+#assignmentHeader div {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    width: 14%;
+    float: right;
+    display: inline-block;
+}
+
+#assignmentHeader hr {
+    border-top: 1px solid #a1a1a1;
+}
+
+#assignmentScore {
+    margin-left: 8.5%;
+}
+
+.score {
+    font-size: 25px;
+    vertical-align: top;
+    margin-top: 39px;
+    margin-left: 15%; 
 }
