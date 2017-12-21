@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www nodemon"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -15,5 +15,8 @@
     "serve-favicon": "~2.4.5",
     "cookie-session": "*",
     "mongoose": "*"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.1"
   }
 }
