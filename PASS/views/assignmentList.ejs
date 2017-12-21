@@ -14,87 +14,163 @@
     <div class="bodyDiv">
         
         <%- include('teacherLeftInfoBanner') -%>
-
-        <div id="mainDiv">
-            <nav>
-                <label id="courseName"><%= course.name %></label>
-                <ul>
-                    <li>
-                        <a href="/pass/courseList">離開課程</a>
-                    </li>
-                    <li>
-                        <a href="/pass/memberList">成員列表</a>
-                    </li>
-                    <li>
-                        <a href="/pass/stastic">成績統計</a>
-                    </li>
-                    <li>
-                        <a href="/pass/assignmentList">作業管理</a>
-                    </li>
-                </ul>
-            </nav>
-            <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
-            <div id="title">
-                <label>作業管理</label>
-            </div>
-
-            <a href="/pass/createAssignment">
-                <label id="addAssignment">+ 新增作業</label>
-            </a>
-
-            <div id="assignmentListDiv">
-                <% course.assignment.forEach(function(assignment, index, assignments) { %>
-                <div class="assignment">
-                    <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
-                    <a href="/pass/assignment">
-                        <div class="assignmentInfo">
-                            <label class="assignmentName"><%= assignment.name %></label>
-                            <br>
-                            <label class="assignmentHangIn">已交：<%= assignment.hanginCount %>人</label>
-                            <label class="assignmentNotHangIn">未交：<%= (course.studentAccount.length) - assignment.hanginCount %>人</label>
-                            <br>
-                            <label class="assignmentDate"><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
-                                <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
-                        </div>
-                    </a>
-
-                    <div class="status">
-                            <% if(assignment.status == "0"){ %>
-                                <label class="haventStart">尚未開始</label>
-                            <%} else if(assignment.status == "1"){ %>
-                                <label class="proceeding">進行中</label>
-                            <%} else if(assignment.status == "2"){ %>
-                                <label class="hasDone">已結束</label>
-                            <% } %>
-                    </div>
-
-                    <div class="manageAssignment">
-                        <a href="/pass/editAssignment">
-                            <div class="editAssignment">
-                                <img src="/image/edit.png">
-                                <label>編輯作業</label>
-                            </div>
-                        </a>
-                        <br>
-                        <br>
-                        <a href=#>
-                            <div class="deleteAssignment">
-                                <img src="/image/delete.png">
-                                <label>刪除作業</label>
-                            </div>
-                        </a>
-                    </div>
-                    <% if (index != assignments.length - 1) {%>
-                        <hr>
-                    <% } %>
+        <% if( user.userType == "teacher"){ %>
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= course.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/memberList">成員列表</a>
+                        </li>
+                        <li>
+                            <a href="/pass/stastic">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label>作業管理</label>
                 </div>
-                <% }); %>
+
+                <a href="/pass/createAssignment">
+                    <label id="addAssignment">+ 新增作業</label>
+                </a>
+
+                <div id="assignmentListDiv">
+                    <% course.assignment.forEach(function(assignment, index, assignments) { %>
+                    <div class="assignment">
+                        <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
+                        <a href="/pass/assignment">
+                            <div class="assignmentInfo">
+                                <label class="assignmentName"><%= assignment.name %></label>
+                                <br>
+                                <label class="assignmentHangIn">已交：<%= assignment.hanginCount %>人</label>
+                                <label class="assignmentNotHangIn">未交：<%= (course.studentAccount.length) - assignment.hanginCount %>人</label>
+                                <br>
+                                <label class="assignmentDate"><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
+                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
+                            </div>
+                        </a>
+
+                        <div class="status">
+                                <% if(assignment.status == "0"){ %>
+                                    <label class="haventStart">尚未開始</label>
+                                <%} else if(assignment.status == "1"){ %>
+                                    <label class="proceeding">進行中</label>
+                                <%} else if(assignment.status == "2"){ %>
+                                    <label class="hasDone">已結束</label>
+                                <% } %>
+                        </div>
+
+                        <div class="manageAssignment">
+                            <a href="/pass/editAssignment">
+                                <div class="editAssignment">
+                                    <img src="/image/edit.png">
+                                    <label>編輯作業</label>
+                                </div>
+                            </a>
+                            <br>
+                            <br>
+                            <a href=#>
+                                <div class="deleteAssignment">
+                                    <img src="/image/delete.png">
+                                    <label>刪除作業</label>
+                                </div>
+                            </a>
+                        </div>
+                        <% if (index != assignments.length - 1) {%>
+                            <hr>
+                        <% } %>
+                    </div>
+                    <% }); %>
+                </div>
             </div>
-
-
-
-
-        </div>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <% } else { %>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= course.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/memberList">成員列表</a>
+                        </li>
+                        <li>
+                            <a href="/pass/stastic">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label>作業管理</label>
+                </div>
+    
+                <a href="/pass/createAssignment">
+                    <label id="addAssignment">+ 新增作業</label>
+                </a>
+    
+                <div id="assignmentListDiv">
+                    <% course.assignment.forEach(function(assignment, index, assignments) { %>
+                    <div class="assignment">
+                        <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
+                        <a href="/pass/assignment">
+                            <div class="assignmentInfo">
+                                <label class="assignmentName"><%= assignment.name %></label>
+                                <br>
+                                <label class="assignmentHangIn">已交：<%= assignment.hanginCount %>人</label>
+                                <label class="assignmentNotHangIn">未交：<%= (course.studentAccount.length) - assignment.hanginCount %>人</label>
+                                <br>
+                                <label class="assignmentDate"><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
+                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
+                            </div>
+                        </a>
+    
+                        <div class="status">
+                                <% if(assignment.status == "0"){ %>
+                                    <label class="haventStart">尚未開始</label>
+                                <%} else if(assignment.status == "1"){ %>
+                                    <label class="proceeding">進行中</label>
+                                <%} else if(assignment.status == "2"){ %>
+                                    <label class="hasDone">已結束</label>
+                                <% } %>
+                        </div>
+    
+                        <div class="manageAssignment">
+                            <a href="/pass/editAssignment">
+                                <div class="editAssignment">
+                                    <img src="/image/edit.png">
+                                    <label>編輯作業</label>
+                                </div>
+                            </a>
+                            <br>
+                            <br>
+                            <a href=#>
+                                <div class="deleteAssignment">
+                                    <img src="/image/delete.png">
+                                    <label>刪除作業</label>
+                                </div>
+                            </a>
+                        </div>
+                        <% if (index != assignments.length - 1) {%>
+                            <hr>
+                        <% } %>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
     </div>
 
     <%- include('footer') -%>
