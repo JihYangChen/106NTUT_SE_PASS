@@ -18,47 +18,24 @@
                 </div>
 
                 <div id="courseListDiv">
-                    <a href="/pass/assignmentList">
-                        <div class="course">
-                            <img src="/image/course.png" alt="course">
-                            <div class="courseInfo">
-                                <label class="courseSemester">106學年度 上學期</label>
-                                <br>
-                                <label class="courseName">物件導向程式設計</label>
-                                <br>
-                                <label class="courseClass">資工二</label>
-                            </div>
-                        </div>
-                    </a>
-                    <hr>
 
-
-                     <a href="/pass/assignmentList">
-                        <div class="course">
-                            <img src="/image/course.png" alt="course">
-                            <div class="courseInfo">
-                                <label class="courseSemester">106學年度 上學期</label>
-                                <br>
-                                <label class="courseName">視窗程式設計</label>
-                                <br>
-                                <label class="courseClass">資工三</label>
+                    <% user.courses.forEach(function(course, index, courses) { %>
+                        <a href="/pass/assignmentList">
+                            <div class="course">
+                                <img src="/image/course.png" alt="course">
+                                <div class="courseInfo">
+                                    <label class="courseSemester">106學年度 上學期</label>
+                                    <br>
+                                    <label class="courseName"><%= course.name %></label>
+                                    <br>
+                                    <label class="courseClass"><%= course.classid.name %></label>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                    <hr>
-
-                    <a href="/pass/assignmentList">
-                        <div class="course">
-                            <img src="/image/course.png" alt="course">
-                            <div class="courseInfo">
-                                <label class="courseSemester">106學年度 上學期</label>
-                                <br>
-                                <label class="courseName">物件導向分析與設計</label>
-                                <br>
-                                <label class="courseClass">資工碩一</label>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                        <% if (index != courses.length - 1) {%>
+                            <hr>
+                        <% } %>
+                    <% }); %>
                     
                 </div>
 
