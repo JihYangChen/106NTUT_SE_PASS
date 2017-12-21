@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var user = mongoose.model('user');
 var course = mongoose.model('course');
 var department = mongoose.model('department');
+var assignment = mongoose.model('assignment');
 //var fs = require('fs');
 //var path = require('path');
 
@@ -24,12 +25,21 @@ router.get('/courseList', function(req, res, next) {
   .populate({path: 'courses', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
-    res.render('courseList', {user : _user});
+    res.render('courseList', { user : _user });
   })
 });
 
-router.get('/assignmentList', function(req, res, next) {
-  res.render('assignmentList', { title: 'Express' });
+router.get('/assignmentList/:courseId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    course.findById(req.params.courseId)
+    .populate('assignment')
+    .exec( function(err, _course) {
+      res.render('assignmentList', { user : _user, course: _course });
+    })
+  })
 });
 
 router.get('/memberList', function(req, res, next) {

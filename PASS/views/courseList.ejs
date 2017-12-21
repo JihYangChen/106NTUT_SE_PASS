@@ -11,7 +11,6 @@
         <div class = "bodyDiv">
             
             <%- include('teacherLeftInfoBanner', {user: user}) -%>
-
             <div id="mainDiv">
                 <div id="pageTitle">
                     <label>課程列表</label>
@@ -20,7 +19,7 @@
                 <div id="courseListDiv">
 
                     <% user.courses.forEach(function(course, index, courses) { %>
-                        <a href="/pass/assignmentList">
+                        <a href="/pass/assignmentList/<%= course._id %>" >
                             <div class="course">
                                 <img src="/image/course.png" alt="course">
                                 <div class="courseInfo">
@@ -35,11 +34,9 @@
                         <% if (index != courses.length - 1) {%>
                             <hr>
                         <% } %>
-                    <% }); %>
-                    
                 </div>
-
             </div>
+            <% } %>
         </div>
 
         <%- include('footer') -%>

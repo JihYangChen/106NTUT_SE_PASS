@@ -17,7 +17,7 @@
 
         <div id="mainDiv">
             <nav>
-                <label id="courseName">物件導向程式設計</label>
+                <label id="courseName"><%= course.name %></label>
                 <ul>
                     <li>
                         <a href="/pass/courseList">離開課程</a>
@@ -43,21 +43,29 @@
             </a>
 
             <div id="assignmentListDiv">
+                <% course.assignment.forEach(function(assignment, index, assignments) { %>
                 <div class="assignment">
                     <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
                     <a href="/pass/assignment">
                         <div class="assignmentInfo">
-                            <label class="assignmentName">Homework #3</label>
+                            <label class="assignmentName"><%= assignment.name %></label>
                             <br>
-                            <label class="assignmentHangIn">已交：0人</label>
-                            <label class="assignmentNotHangIn">未交：62人</label>
+                            <label class="assignmentHangIn">已交：<%= assignment.hanginCount %>人</label>
+                            <label class="assignmentNotHangIn">未交：<%= (course.studentAccount.length) - assignment.hanginCount %>人</label>
                             <br>
-                            <label class="assignmentDate">2018/01/27 - 2018/02/10</label>
+                            <label class="assignmentDate"><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
+                                <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
                         </div>
                     </a>
 
                     <div class="status">
-                        <label class="haventStart">尚未開始</label>
+                            <% if(assignment.status == "0"){ %>
+                                <label class="haventStart">尚未開始</label>
+                            <%} else if(assignment.status == "1"){ %>
+                                <label class="proceeding">進行中</label>
+                            <%} else if(assignment.status == "2"){ %>
+                                <label class="hasDone">已結束</label>
+                            <% } %>
                     </div>
 
                     <div class="manageAssignment">
@@ -76,81 +84,11 @@
                             </div>
                         </a>
                     </div>
+                    <% if (index != assignments.length - 1) {%>
+                        <hr>
+                    <% } %>
                 </div>
-
-                <hr>
-
-                <div class="assignment">
-                    <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
-                    <a href="/pass/assignment">
-                        <div class="assignmentInfo">
-                            <label class="assignmentName">Homework #2</label>
-                            <br>
-                            <label class="assignmentHangIn">已交：14人</label>
-                            <label class="assignmentNotHangIn">未交：48人</label>
-                            <br>
-                            <label class="assignmentDate">2017/12/30 - 2017/01/12</label>
-                        </div>
-                    </a>
-
-                    <div class="status">
-                        <label class="proceeding">進行中</label>
-                    </div>
-
-                    <div class="manageAssignment">
-                        <a href="/pass/editAssignment">
-                            <div class="editAssignment">
-                                <img src="/image/edit.png">
-                                <label>編輯作業</label>
-                            </div>
-                        </a>
-                        <br>
-                        <br>
-                        <a href=#>
-                            <div class="deleteAssignment">
-                                <img src="/image/delete.png">
-                                <label>刪除作業</label>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="assignment">
-                    <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
-                    <a href="/pass/assignment">
-                        <div class="assignmentInfo">
-                            <label class="assignmentName">Homework #1</label>
-                            <br>
-                            <label class="assignmentHangIn">已交：41人</label>
-                            <label class="assignmentNotHangIn">未交：7人</label>
-                            <br>
-                            <label class="assignmentDate">2017/09/20 - 2017/10/27</label>
-                        </div>
-                    </a>
-
-                    <div class="status">
-                        <label class="hasDone">已結束</label>
-                    </div>
-
-                    <div class="manageAssignment">
-                        <a href="/pass/editAssignment">
-                            <div class="editAssignment">
-                                <img src="/image/edit.png">
-                                <label>編輯作業</label>
-                            </div>
-                        </a>
-                        <br>
-                        <br>
-                        <a href=#>
-                            <div class="deleteAssignment">
-                                <img src="/image/delete.png">
-                                <label>刪除作業</label>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                <% }); %>
             </div>
 
 

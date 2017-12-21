@@ -26,11 +26,24 @@ var courseSchema = new Schema({
     teacherAccount : {type : String, required : true },
     TA : [{type : String, ref: 'user' }],
     studentAccount : [{type : String, ref: 'user' }],
+    assignment: [{ type : Schema.Types.ObjectId, required : true , ref: 'assignment'}]
 },  { collection: 'course' });
+
+var assignmentSchema = new Schema({
+    _id : { type : Schema.Types.ObjectId, required : true }, 
+    name : { type : String, required : true },
+    description : {type : String },
+    courseid : {type : String, required : true, ref: 'course' },
+    start : {type : Date, required : true},
+    end : {type : Date, required : true},
+    status : {type : String, required : true },
+    hanginCount : {type : Number, required : true, default: 0}
+},  { collection: 'assignment' , timestamps: true});
 
 mongoose.model('user', userSchema);
 mongoose.model('department', departmentSchema);
 mongoose.model('course', courseSchema);
+mongoose.model('assignment', assignmentSchema);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://passadmin:1421@ds159737.mlab.com:59737/pass', {
