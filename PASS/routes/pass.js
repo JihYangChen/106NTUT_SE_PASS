@@ -10,10 +10,11 @@ var assignment = mongoose.model('assignment');
 //var path = require('path');
 
 router.use(function (req, res, next) {
-    if(req.session.userType == null){
+    if(req.session.user.userType == null){
         res.redirect('/');
+    } else {
+      next();
     }
-    next();
 });
 
 router.get('/course', function(req, res, next) {
