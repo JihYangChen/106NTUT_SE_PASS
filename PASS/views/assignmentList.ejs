@@ -46,7 +46,7 @@
                     <% course.assignment.forEach(function(assignment, index, assignments) { %>
                     <div class="assignment">
                         <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
-                        <a href="/pass/assignment">
+                        <a href="/pass/assignment/<%= assignment._id %>">
                             <div class="assignmentInfo">
                                 <label class="assignmentName"><%= assignment.name %></label>
                                 <br>
@@ -92,7 +92,7 @@
                 </div>
             </div>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-            <% } else { %>
+        <% } else { %>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
             <div id="mainDiv">
                 <nav>
@@ -132,7 +132,7 @@
                     <% course.assignment.forEach(function(assignment, index, assignments) { %>
                     <div class="assignment">
                         <img src="/image/assignment.png" alt="assignment" id="assignmentImg">
-                        <a href="/pass/assignment">
+                        <a href="/pass/assignment/<%= assignment._id %>">
                             <div class="assignmentInfo">
                                 <label class="assignmentName"><%= assignment.name %></label>
                                 <br>
@@ -145,13 +145,13 @@
                         </a>
     
                         <div class="status">
-                                <% if(assignment.status == "0"){ %>
-                                    <label class="haventStart">未繳交</label>
-                                <%} else if(assignment.status == "1"){ %>
-                                    <label class="proceeding">已繳交</label>
-                                <%} else if(assignment.status == "2"){ %>
-                                    <label class="hasDone">已逾期</label>
-                                <% } %>
+                            <% if(assignment.status == "0"){ %>
+                                <label class="haventStart">尚未開始</label>
+                            <%} else if(assignment.status == "1"){ %>
+                                <label class="proceeding">進行中</label>
+                            <%} else if(assignment.status == "2"){ %>
+                                <label class="hasDone">已結束</label>
+                            <% } %>
                         </div>
     
                         <div class="score">

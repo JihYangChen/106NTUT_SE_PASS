@@ -14,86 +14,190 @@
     <div class="bodyDiv">
 
         <%- include('teacherLeftInfoBanner') -%>
+        <!-- Determine identity of user is TA or student by course id == ta course id.!!!!!!!! -->
+        <% if( user.userType == "teacher"){ %>
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= assignment.courseid.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/memberList">成員列表</a>
+                        </li>
+                        <li>
+                            <a href="/pass/stastic">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= assignment.courseid._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label><%= assignment.name %></label>
+                    <a href="/pass/correct/<%= assignment._id %>">
+                        <label id="topButton">批改作業</label>
+                    </a>
+                </div>
 
-        <div id="mainDiv">
-            <nav>
-                <label id="courseName">物件導向程式設計</label>
-                <ul>
-                    <li>
-                        <a href="/pass/courseList">離開課程</a>
-                    </li>
-                    <li>
-                        <a href="/pass/memberList">成員列表</a>
-                    </li>
-                    <li>
-                        <a href="/pass/stastic">成績統計</a>
-                    </li>
-                    <li>
-                        <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
-                    </li>
-                </ul>
-            </nav>
-            <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
-            <div id="title">
-                <label>Homework #3</label>
-                <a href="/pass/correct">
-                    <label id="topButton">批改作業</label>
-                </a>
+                <div id="assignmentDiv">
+                    <table>
+                        <tr>
+                            <th>
+                                作業名稱
+                            </th>
+                            <td>
+                                <label><%= assignment.name %></label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                作業狀態
+                            </th>
+                            <td class="status">
+                                <% if(assignment.status == "0"){ %>
+                                    <label class="haventStart">尚未開始</label>
+                                <%} else if(assignment.status == "1"){ %>
+                                    <label class="proceeding">進行中</label>
+                                <%} else if(assignment.status == "2"){ %>
+                                    <label class="hasDone">已結束</label>
+                                <% } %>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                繳交期限
+                            </th>
+                            <td>
+                                <label><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
+                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                作業描述
+                            </th>
+                            <td>
+                                <label><%= assignment.description %></label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                繳交情況
+                            </th>
+                            <td>
+                                <label>已交 <%= assignment.hanginCount %>人</label><br>
+                                <label>未交 <%= (assignment.courseid.studentAccount.length) - assignment.hanginCount %>人</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <a href="/pass/editAssignment/<%= assignment._id %>" class="whiteButton">編輯</a>
+                <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton" id="secondBtn">離開</a>
             </div>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <% } else { %>
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= assignment.courseid.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/memberList">成員列表</a>
+                        </li>
+                        <li>
+                            <a href="/pass/stastic">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= assignment.courseid._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label><%= assignment.name %></label>
+                </div>
 
-            <div id="assignmentDiv">
-                <table>
-                    <tr>
-                        <th>
-                            作業名稱
-                        </th>
-                        <td>
-                            <label>Homework #3</label>
-                        </td>
-                    </tr>
+                <div id="assignmentDiv">
+                    <table>
+                        <tr>
+                            <th>
+                                作業名稱
+                            </th>
+                            <td>
+                                <label><%= assignment.name %></label>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            作業狀態
-                        </th>
-                        <td class="status">
-                            <label class="haventStart">尚未開始</label>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>
+                                作業狀態
+                            </th>
+                            <td class="status">
+                                <% if(assignment.status == "0"){ %>
+                                    <label class="haventStart">尚未開始</label>
+                                <%} else if(assignment.status == "1"){ %>
+                                    <label class="proceeding">進行中</label>
+                                <%} else if(assignment.status == "2"){ %>
+                                    <label class="hasDone">已結束</label>
+                                <% } %>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            繳交期限
-                        </th>
-                        <td>
-                            <label>2018/01/27 - 2018/02/10</label>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>
+                                繳交期限
+                            </th>
+                            <td>
+                                <label><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate() + " " + 
+                                            assignment.start.getHours() + ":" + assignment.start.getMinutes() + ":" + assignment.start.getSeconds() %> - 
+                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate() + " " + 
+                                        assignment.end.getHours() + ":" + assignment.end.getMinutes() + ":" + assignment.end.getSeconds()%></label>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            作業描述
-                        </th>
-                        <td>
-                            <label>Textbook Ch12 p.237 programming project 12.</label>
-                        </td>
-                    </tr>
+                        <tr>
+                            <th>
+                                作業描述
+                            </th>
+                            <td>
+                                <label><%= assignment.description %></label>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <th>
-                            繳交情況
-                        </th>
-                        <td>
-                            <label>已交 0人</label><br>
-                            <label>未交 62人</label>
-                        </td>
-                    </tr>
-                </table>
+                        <tr>
+                            <th>
+                                上傳檔案
+                            </th>
+                            <td>
+                                <a href="#"><label id="fileName">106598001.zip</label></a>
+                                <br>
+                                <% if (assignment.status == "1") { %>
+                                    <input id="selectFilePath" type="file">
+                                <% } %>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <% if (assignment.status == "1") { %>
+                    <a href="#" class="whiteButton">確認繳交</a>
+                    <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton" id="secondBtn">離開</a>
+                <% } else { %>
+                    <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton buttonAlignCenter" id="middleBtn">離開</a>
+                <% } %>
             </div>
-
-            <a href="/pass/editAssignment" class="whiteButton">編輯</a>
-            <a href="/pass/assignmentList" class="whiteButton" id="exitBtn">離開</a>
-        </div>
+        <% } %>
     </div>
 
     <%- include('footer') -%>

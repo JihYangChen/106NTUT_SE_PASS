@@ -86,7 +86,7 @@
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid#429488;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-left: 36%;
 }
 
@@ -96,6 +96,25 @@
     cursor: pointer;
 }
 
-#exitBtn {
+#secondBtn {
     margin-left: 20px;
+}
+
+#middleBtn {
+    margin-left: 45%;
+}
+
+#fileName {
+    text-decoration: underline;
+    color: #4273B1;
+}
+
+#fileName:hover {
+    color: rgb(58, 72, 202);
+}
+
+#selectFilePath {
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
 }
