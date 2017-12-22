@@ -47,8 +47,17 @@ router.get('/memberList', function(req, res, next) {
   res.render('memberList', { title: 'Express' });
 });
 
-router.get('/correct', function(req, res, next) {
-  res.render('correct', { title: 'Express' });
+router.get('/correct/:assignmentId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    assignment.findById(req.params.assignmentId)
+    .populate({path: 'courseid', populate: {path: 'studentAccount'}})
+    .exec( function(err, _assignment) {
+      res.render('correct', { user : _user, assignment: _assignment });
+    })
+  })
 });
 
 router.get('/createAssignment', function(req, res, next) {
