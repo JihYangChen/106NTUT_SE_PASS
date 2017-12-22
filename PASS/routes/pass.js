@@ -10,7 +10,7 @@ var assignment = mongoose.model('assignment');
 //var path = require('path');
 
 router.use(function (req, res, next) {
-    if(req.session.user.userType == null){
+    if(req.session.user == null){
         res.redirect('/');
     } else {
       next();
