@@ -44,7 +44,7 @@
         <div id="courseShortcutListDiv">
 
             <% user.courses.forEach(function(course) { %>
-                <a href="/pass/assignmentList">
+                <a href="/pass/assignmentList/<%= course._id %>">
                     <div class="courseShortcutDiv">
                         <label><%= course.name %></label>
                         <br>
@@ -55,7 +55,7 @@
     
                 <hr>
             <% }); %>
-            
+
         </div>
     </div>
 </div>
@@ -109,7 +109,7 @@
         <div id="courseShortcutListDiv">
 
             <% user.courses.forEach(function(course) { %>
-                <a href="/pass/assignmentList">
+                <a href="/pass/assignmentList/<%= course._id %>">
                     <div class="courseShortcutDiv">
                         <label><%= course.name %></label>
                         <br>

@@ -113,18 +113,20 @@
                 <div id="title">
                     <label>作業管理</label>
                 </div>
-    
-                <div id="assignmentHeader">
-                    <div id="assignmentScore">
-                        <label>作業成績</label>
-                        <hr>
-                    </div>
+                
+                <% if (course.assignment.length) { %>
+                    <div id="assignmentHeader">
+                        <div id="assignmentScore">
+                            <label>作業成績</label>
+                            <hr>
+                        </div>
 
-                    <div id="assignmentStatus">
-                        <label>狀態</label>
-                        <hr>
+                        <div id="assignmentStatus">
+                            <label>狀態</label>
+                            <hr>
+                        </div>
                     </div>
-                </div>
+                <% } %>
     
                 <div id="assignmentListDiv">
                     <% course.assignment.forEach(function(assignment, index, assignments) { %>
@@ -144,11 +146,11 @@
     
                         <div class="status">
                                 <% if(assignment.status == "0"){ %>
-                                    <label class="haventStart">尚未開始</label>
+                                    <label class="haventStart">未繳交</label>
                                 <%} else if(assignment.status == "1"){ %>
-                                    <label class="proceeding">進行中</label>
+                                    <label class="proceeding">已繳交</label>
                                 <%} else if(assignment.status == "2"){ %>
-                                    <label class="hasDone">已結束</label>
+                                    <label class="hasDone">已逾期</label>
                                 <% } %>
                         </div>
     
