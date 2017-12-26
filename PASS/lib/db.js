@@ -30,7 +30,6 @@ var courseSchema = new Schema({
 },  { collection: 'course' });
 
 var assignmentSchema = new Schema({
-    _id : { type : Schema.Types.ObjectId, required : true }, 
     name : { type : String, required : true },
     description : {type : String },
     courseid : {type : String, required : true, ref: 'course' },
@@ -38,7 +37,7 @@ var assignmentSchema = new Schema({
     end : {type : Date, required : true},
     status : {type : String, required : true },
     hanginCount : {type : Number, required : true, default: 0}
-},  { collection: 'assignment' , timestamps: true});
+},  { collection: 'assignment' });
 
 mongoose.model('user', userSchema);
 mongoose.model('department', departmentSchema);

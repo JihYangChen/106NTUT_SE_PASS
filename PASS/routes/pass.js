@@ -63,8 +63,18 @@ router.get('/correct/:assignmentId', function(req, res, next) {
   })
 });
 
-router.get('/createAssignment', function(req, res, next) {
-  res.render('createAssignment', { title: 'Express' });
+router.get('/createAssignment/:courseId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    course.findById(req.params.courseId)
+    .populate('assignment')
+    .exec( function(err, _course) {
+      req.session.curCourseId = req.params.courseId;
+      res.render('createAssignment', { user : _user, course: _course });
+    })
+  })
 });
 
 router.get('/assignment/:assignmentId', function(req, res, next) {
@@ -147,6 +157,23 @@ router.get('/assignment/download/:fileName', function(req, res, next) {
     } else {
       res.end();
     }
+  });
+});
+
+router.post('/createAssignment', function(req, res, next){
+  assignment.findOne()
+  .where('name').equals(req.body.name)
+  .exec(function(err, _assignment){
+      if(err) {
+        next(err);
+      }
+      else if(_assignment != null){
+        res.send("作業名稱重複！！");
+      }
+      else {
+        assignment.create(req.body);
+        res.send("success");
+      }
   });
 });
 
