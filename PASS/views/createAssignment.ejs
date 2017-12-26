@@ -103,8 +103,10 @@
                     "end" : $("#endDate").val(),
                     "status" : status
                 }, function(data, status){
-                    if(data == "success")
+                    if(data == "success") {
                         alert("新增作業成功！！");
+                        document.location.href="/pass/assignmentList/<%= course._id %>";
+                    }
                     else
                         alert(data);
                 });

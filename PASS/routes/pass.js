@@ -172,8 +172,11 @@ router.post('/createAssignment', function(req, res, next){
         res.send("作業名稱重複！！");
       }
       else {
-        assignment.create(req.body);
-        res.send("success");
+        assignment.create(req.body, function(err, _assignment) {
+          course.findOneAndUpdate({_id: _assignment.courseid}, {"$push": { assignment: _assignment._id }}, function(err, _course) {
+            res.send("success");
+          });
+        });
       }
   });
 });
