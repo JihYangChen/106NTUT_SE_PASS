@@ -134,6 +134,7 @@ router.post('/uploadAssignment', function(req, res, next){
       readStream.on('end',function() {
           fs.unlinkSync(filePath);
       });
+      //var insertAssignment **************
       res.redirect('/pass/assignmentList/' + req.session.curCourseId);
     }
   });

@@ -38,7 +38,16 @@ var assignmentSchema = new Schema({
     end : {type : Date, required : true},
     status : {type : String, required : true },
     hanginCount : {type : Number, required : true, default: 0}
-},  { collection: 'assignment' , timestamps: true});
+},  { collection: 'assignment' , timestamps: true });
+
+var studentAssignmentSchema = new Schema({
+    _id : { type : Schema.Types.ObjectId, required : true }, 
+    assignmentId : { type : Schema.Types.ObjectId, required : true , ref: 'assignment'},
+    studentAccount : {type : String, ref: 'user' },
+    name : { type : String, required : true },
+    score : { type : Number, required : true },
+    comment : { type : String, required : true }
+}, { collection: 'studentAssignment' });
 
 mongoose.model('user', userSchema);
 mongoose.model('department', departmentSchema);
