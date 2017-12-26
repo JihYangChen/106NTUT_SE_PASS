@@ -14,7 +14,8 @@
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5",
     "cookie-session": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "formidable": "latest"
   },
   "devDependencies": {
     "nodemon": "^1.14.1"

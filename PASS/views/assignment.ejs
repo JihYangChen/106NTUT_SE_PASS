@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/mainDiv.css">
     <link rel="stylesheet" href="/stylesheets/assignment.css">
     <link rel="stylesheet" href="/stylesheets/footer.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
 </head>
 
 <body>
@@ -105,6 +106,11 @@
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
         <% } else { %>
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <script>
+                $(document).on("click", "#submitAssignmentFile", function(){
+                    $("#formUpload").submit();
+                });
+            </script>
             <div id="mainDiv">
                 <nav>
                     <label id="courseName"><%= assignment.courseid.name %></label>
@@ -180,10 +186,18 @@
                                 上傳檔案
                             </th>
                             <td>
-                                <a href="#"><label id="fileName">106598001.zip</label></a>
-                                <br>
+                                <% if (fileName != ""){ %>
+                                    <a href="/pass/assignment/download/<%= fileName %>"><label id="fileName"><%= fileName %></label></a>
+                                    <br>
+                                <% } %>
+                                <% if(fileName == "") {%>
+                                    <label>尚未上傳檔案</label>
+                                    <br>
+                                <% } %>
                                 <% if (assignment.status == "1") { %>
-                                    <input id="selectFilePath" type="file">
+                                    <form id="formUpload" action="/pass/uploadAssignment" enctype="multipart/form-data" method="post">
+                                        <input id="selectFilePath" name="selectFile" type="file">
+                                    </form>
                                 <% } %>
                             </td>
                         </tr>
@@ -191,7 +205,7 @@
                 </div>
 
                 <% if (assignment.status == "1") { %>
-                    <a href="#" class="whiteButton">確認繳交</a>
+                    <label id="submitAssignmentFile" class="whiteButton">確認繳交</label>
                     <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton" id="secondBtn">離開</a>
                 <% } else { %>
                     <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton buttonAlignCenter" id="middleBtn">離開</a>
