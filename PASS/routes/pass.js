@@ -170,7 +170,7 @@ router.get('/assignment/download/:fileName', function(req, res, next) {
   });
 });
 
-router.post('/createAssignment', function(req, res, next){
+router.post('/createAssignment', function(req, res, next) {
   assignment.findOne()
   .where('name').equals(req.body.name)
   .exec(function(err, _assignment){
@@ -190,8 +190,14 @@ router.post('/createAssignment', function(req, res, next){
   });
 });
 
-router.patch('/editAssignment', function(req, res, next){
+router.patch('/editAssignment', function(req, res, next) {
   assignment.findOneAndUpdate({_id: req.body._id}, req.body, function(err, _assignment) {
+    res.send("success");
+  });
+});
+
+router.delete('/deleteAssignment', function(req, res, next) {
+  assignment.findOneAndRemove({_id: req.body.assignmentId}, function(error, doc, _assignment) {
     res.send("success");
   });
 });
