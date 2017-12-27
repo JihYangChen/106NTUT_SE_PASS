@@ -162,6 +162,14 @@ router.post('/uploadAssignment', function(req, res, next){
         if(err) next(err);
         else if(_studentAssignment == null) res.send("Database update fail.");
         else{
+          if(_studentAssignment.fileURL == null){
+            assignment.findById(req.session.curAssignmentId, function(err, _assignment){
+              _assignment.hanginCount += 1;
+              _assignment.save(function(err){
+                console.log("已上傳人數增加失敗！");
+              });
+            });
+          }
           _studentAssignment.fileURL = fileName;
           _studentAssignment.save(function(err){
             console.log("Student assignment save suceess.");
@@ -222,7 +230,10 @@ router.patch('/editAssignment', function(req, res, next) {
 router.delete('/deleteAssignment', function(req, res, next) {
   assignment.findOneAndRemove({_id: req.body.assignmentId}, function(error, doc, _assignment) {
     course.findByIdAndUpdate(req.body.courseId, { "$pull": { assignment: req.body.assignmentId }}, function (err, doc) {
-      res.send("success");
+      studentAssignment.remove({ assignmentId : req.body.assignmentId }, function(err){
+        if(err) next(err);
+        else res.send("success");
+      });
     });
   });
 });
