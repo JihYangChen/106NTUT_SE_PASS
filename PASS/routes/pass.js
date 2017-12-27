@@ -6,6 +6,7 @@ var user = mongoose.model('user');
 var course = mongoose.model('course');
 var department = mongoose.model('department');
 var assignment = mongoose.model('assignment');
+var studentAssignment = mongoose.model('studentAssignment');
 var path = require('path');
 var fs = require('fs');
 var util = require('util');
@@ -144,7 +145,16 @@ router.post('/uploadAssignment', function(req, res, next){
       readStream.on('end',function() {
           fs.unlinkSync(filePath);
       });
-      //var insertAssignment **************
+      studentAssignment.findOne()
+      .where('assignmentId').equals(req.session.curAssignmentId)
+      .where('studentAccount').equals(req.session.user.account).exec(function(err, _studentAssignment){
+        if(err || _studentAssignment == null) next();
+        _studentAssignment.name = filePath.substring(filePath.lastIndexOf('/') + 1);
+        _studentAssignment.fileURL = fileName;
+        _studentAssignment.save(function(err){
+          console.log("Student assignment save suceess.");
+        });
+      });
       res.redirect('/pass/assignmentList/' + req.session.curCourseId);
     }
   });

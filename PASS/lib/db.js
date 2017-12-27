@@ -42,16 +42,18 @@ var assignmentSchema = new Schema({
 var studentAssignmentSchema = new Schema({
     _id : { type : Schema.Types.ObjectId, required : true }, 
     assignmentId : { type : Schema.Types.ObjectId, required : true , ref: 'assignment'},
-    studentAccount : {type : String, ref: 'user' },
-    name : { type : String, required : true },
-    score : { type : Number, required : true },
-    comment : { type : String, required : true }
+    studentAccount : {type : String, required : true, ref: 'user' },
+    name : { type : String },
+    fileURL : { type : String },
+    score : { type : Number },
+    comment : { type : String }
 }, { collection: 'studentAssignment' });
 
 mongoose.model('user', userSchema);
 mongoose.model('department', departmentSchema);
 mongoose.model('course', courseSchema);
 mongoose.model('assignment', assignmentSchema);
+mongoose.model('studentAssignment', assignmentSchema);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://passadmin:1421@ds159737.mlab.com:59737/pass', {
