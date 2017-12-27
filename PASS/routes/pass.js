@@ -206,9 +206,9 @@ router.post('/createAssignment', function(req, res, next){
                 if(err) next(err);
               });
             });
-            res.send("success");
           });
         });
+        res.send("success");
       }
   });
 });

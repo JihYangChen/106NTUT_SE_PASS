@@ -40,7 +40,6 @@ var assignmentSchema = new Schema({
 },  { collection: 'assignment' });
 
 var studentAssignmentSchema = new Schema({
-    _id : { type : Schema.Types.ObjectId, required : true }, 
     assignmentId : { type : Schema.Types.ObjectId, required : true , ref: 'assignment'},
     studentAccount : {type : String, required : true, ref: 'user' },
     fileURL : { type : String },
