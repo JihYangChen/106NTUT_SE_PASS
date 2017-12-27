@@ -70,7 +70,7 @@
                 </table>
             </div>
 
-            <input type="button" value="確認" class="whiteButton">
+            <input type="button" id="submit" value="確認" class="whiteButton">
             <input type="button" id="secondBtn" class="whiteButton" onClick="location.href='/pass/assignment/<%= assignment._id %>'" value="離開">
 
         </div>
@@ -97,6 +97,44 @@
             
             return formatedDate;
         }
+
+        $("#submit").click(function(){
+            var startDate = new Date($("#startDate").val());
+            var endDate = new Date($("#endDate").val());
+            var now = new Date();
+            var status = "0";
+
+            if (endDate < now)
+                status = "2"
+            else if(startDate > now)
+                status = "0";
+            else
+                status = "1";
+
+            $.ajax({
+                method: "PATCH",
+                url: "/pass/editAssignment",
+                data: {
+                    "_id" : "<%= assignment._id %>",
+                    "name" : $("#assignmentName").val(),
+                    "description" : $("#assignmentDescription").val(),
+                    "courseid" : "<%= assignment.courseid._id %>",
+                    "start" : startDate.toISOString(),
+                    "end" : endDate.toISOString(),
+                    "status" : status
+                }
+            }).done(function(data) {
+                if(data == "success") {
+                    alert("更新作業成功！！");
+                    document.location.href="/pass/assignmentList/<%= assignment.courseid._id %>";
+                }
+                else
+                    alert(data);
+            })
+            .fail(function(data) {
+                alert(data);
+            });
+        });
     </script>
     
 </body>

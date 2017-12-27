@@ -190,5 +190,11 @@ router.post('/createAssignment', function(req, res, next){
   });
 });
 
+router.patch('/editAssignment', function(req, res, next){
+  assignment.findOneAndUpdate({_id: req.body._id}, req.body, function(err, _assignment) {
+    res.send("success");
+  });
+});
+
 module.exports = router;
 

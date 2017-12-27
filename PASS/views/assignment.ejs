@@ -156,10 +156,7 @@
                                 繳交期限
                             </th>
                             <td>
-                                <label><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate() + " " + 
-                                            assignment.start.getHours() + ":" + assignment.start.getMinutes() + ":" + assignment.start.getSeconds() %> - 
-                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate() + " " + 
-                                        assignment.end.getHours() + ":" + assignment.end.getMinutes() + ":" + assignment.end.getSeconds()%></label>
+                                <label id="date"></label>
                             </td>
                         </tr>
 
@@ -224,7 +221,7 @@
                 var hour = ("0" + inputDate.getHours()).slice(-2);
                 var minute = ("0" + inputDate.getMinutes()).slice(-2);
                 var second = ("0" + inputDate.getSeconds()).slice(-2);
-                var formatedDate = year + '/' + month+ '/' + date + " " + hour + ":" + minute + ":" + second; 
+                var formatedDate = year + '/' + month+ '/' + date + " " + hour + ":" + minute + ":" + second;
                 
                 return formatedDate;
             }
