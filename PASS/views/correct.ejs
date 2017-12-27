@@ -29,13 +29,13 @@
                         <a href="/pass/stastic">成績統計</a>
                     </li>
                     <li>
-                        <a href="/pass/assignmentList/<%= assignment.courseid._id %>">作業管理</a>
+                        <a href="/pass/assignmentList/<%= courseId %>">作業管理</a>
                     </li>
                 </ul>
             </nav>
             <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
             <div id="title">
-                <label><%= assignment.name %></label>
+                <label><%= assignmentName %></label>
                 <a href="#">
                     <label id="topButton">全部下載</label>
                 </a>
@@ -51,10 +51,10 @@
                         <th>下載</th>
                     </tr>
 
-                    <% assignment.courseid.studentAccount.forEach(function(student) { %>
+                    <% studentAssignment.forEach(function(student) { %>
                         <tr>
-                            <td><%= student.name %></td>
-                            <td><%= student.account %></td>
+                            <td><%= student.studentAccount.name %></td>
+                            <td><%= student.studentAccount.account %></td>
                             <td>
                                 <input type="text" class="score">
                             </td>
@@ -62,10 +62,14 @@
                                 <input type="text" class="comment">
                             </td>
                             <td>
-                                <a href="#">
-                                    <label>作業下載</label>
-                                    <!-- <label class="haventHangIn">尚未繳交</label> -->
-                                </a>
+                                <% if(student.fileURL == null) { %>
+                                    <label class="haventHangIn">尚未繳交</label>
+                                <% } %>
+                                <% if(student.fileURL != null) { %>
+                                    <a href="/pass/assignment/download/<%= student.fileURL %>">
+                                        <label>作業下載</label>
+                                    </a>
+                                <% } %>
                             </td>
                         </tr>
                     <% }) %>
