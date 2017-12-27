@@ -26,7 +26,9 @@
     border-bottom: none;
 }
 
-input[type=submit] {
+.whiteButton {
+    text-align: center;
+    line-height: 28px;
     display: inline-block;
     color: #429488;
     background-color: white;
@@ -35,14 +37,18 @@ input[type=submit] {
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid#429488;
-    margin-top: 30px;
+    margin-top: 5px;
     margin-left: 36%;
 }
 
-input[type=submit]:hover {
+.whiteButton:hover {
     background-color: #429488;
     color: white;
     cursor: pointer;
+}
+
+#secondBtn {
+    margin-left: 20px;
 }
 
 #exitBtn {

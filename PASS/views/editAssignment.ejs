@@ -29,13 +29,13 @@
                         <a href="/pass/stastic">成績統計</a>
                     </li>
                     <li>
-                        <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                        <a href="/pass/assignmentList/<%= assignment.courseid._id %>">作業管理</a>
                     </li>
                 </ul>
             </nav>
             <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
             <div id="title">
-                <label>Homework #3</label>
+                <label><%= assignment.name %></label>
             </div>
 
             <div id="assignmentDiv">
@@ -45,7 +45,7 @@
                             作業名稱
                         </th>
                         <td>
-                            <input type="text" value="Homework #3">
+                            <input type="text" id="assignmentName" value="<%= assignment.name %>">
                         </td>
                     </tr>
 
@@ -54,8 +54,8 @@
                             繳交期限
                         </th>
                         <td>
-                            <input type="date" value="2018-01-27"> -
-                            <input type="date" value="2018-02-10">
+                            <input type="datetime-local" id="startDate"> -
+                            <input type="datetime-local" id="endDate">
                         </td>
                     </tr>
 
@@ -64,19 +64,40 @@
                             作業描述
                         </th>
                         <td>
-                            <textarea cols="80" rows="5">Textbook Ch12 p.237 programming project 12.</textarea>
+                            <textarea id="assignmentDescription" cols="80" rows="5"><%= assignment.description %></textarea>
                         </td>
                     </tr>
                 </table>
             </div>
 
-            <input type="submit" value="確認">
-            <input type="submit" id="exitBtn" value="離開">
+            <input type="button" value="確認" class="whiteButton">
+            <input type="button" id="secondBtn" class="whiteButton" onClick="location.href='/pass/assignment/<%= assignment._id %>'" value="離開">
 
         </div>
     </div>
 
     <%- include('footer') -%>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#startDate").val(formattingDateTime("<%= assignment.start %>"));
+            $("#endDate").val(formattingDateTime("<%= assignment.end %>"));
+        });
+
+        function formattingDateTime(d) {
+            var inputDate = new Date(d);
+            var year = inputDate.getFullYear();
+            var month = ("0" + (inputDate.getMonth() + 1)).slice(-2);
+            var date = ("0" + inputDate.getDate()).slice(-2);
+            var hour = ("0" + inputDate.getHours()).slice(-2);
+            var minute = ("0" + inputDate.getMinutes()).slice(-2);
+            var second = ("0" + inputDate.getSeconds()).slice(-2);
+            var formatedDate = year + '-' + month+ '-' + date + "T" + hour + ":" + minute + ":" + second; 
+            
+            return formatedDate;
+        }
+    </script>
     
 </body>
 

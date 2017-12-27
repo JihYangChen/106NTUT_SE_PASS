@@ -74,8 +74,7 @@
                                 繳交期限
                             </th>
                             <td>
-                                <label><%= assignment.start.getFullYear() + '/' + (assignment.start.getMonth() + 1) + '/' + assignment.start.getDate()%> - 
-                                    <%= assignment.end.getFullYear() + '/' + (assignment.end.getMonth()+1) + '/' + assignment.end.getDate()%></label>
+                                <label id="date"> /label>
                             </td>
                         </tr>
 
@@ -106,11 +105,6 @@
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
         <% } else { %>
         <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-            <script>
-                $(document).on("click", "#submitAssignmentFile", function(){
-                    $("#formUpload").submit();
-                });
-            </script>
             <div id="mainDiv">
                 <nav>
                     <label id="courseName"><%= assignment.courseid.name %></label>
@@ -208,7 +202,34 @@
                     <a href="/pass/assignmentList/<%= assignment.courseid._id %>" class="whiteButton buttonAlignCenter" id="middleBtn">離開</a>
                 <% } %>
             </div>
+
+            <script>
+                $(document).on("click", "#submitAssignmentFile", function(){
+                    $("#formUpload").submit();
+                });
+            </script>
+
         <% } %>
+
+        <script>
+            $(document).ready(function() {
+                $("#date").text(formattingDateTime("<%= assignment.start %>") + " - " + formattingDateTime("<%= assignment.end %>"));
+            });
+    
+            function formattingDateTime(d) {
+                var inputDate = new Date(d);
+                var year = inputDate.getFullYear();
+                var month = ("0" + (inputDate.getMonth() + 1)).slice(-2);
+                var date = ("0" + inputDate.getDate()).slice(-2);
+                var hour = ("0" + inputDate.getHours()).slice(-2);
+                var minute = ("0" + inputDate.getMinutes()).slice(-2);
+                var second = ("0" + inputDate.getSeconds()).slice(-2);
+                var formatedDate = year + '/' + month+ '/' + date + " " + hour + ":" + minute + ":" + second; 
+                
+                return formatedDate;
+            }
+        </script>
+
     </div>
 
     <%- include('footer') -%>

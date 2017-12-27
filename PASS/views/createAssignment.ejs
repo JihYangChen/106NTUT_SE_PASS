@@ -99,8 +99,8 @@
                     "name" : $("#assignmentName").val(),
                     "description" : $("#assignmentDescription").val(),
                     "courseid" : "<%= course._id %>",
-                    "start" : $("#startDate").val(),
-                    "end" : $("#endDate").val(),
+                    "start" : startDate.toISOString(),
+                    "end" : endDate.toISOString(),
                     "status" : status
                 }, function(data, status){
                     if(data == "success") {
