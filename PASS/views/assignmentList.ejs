@@ -106,7 +106,8 @@
                         method: "DELETE",
                         url: "/pass/deleteAssignment",
                         data: {
-                            "assignmentId": assignmentId
+                            "assignmentId": assignmentId,
+                            "courseId" : "<%= course._id %>"
                         }
                     }).done(function(data) {
                         if(data == "success") {

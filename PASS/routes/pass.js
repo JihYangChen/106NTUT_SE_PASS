@@ -221,7 +221,9 @@ router.patch('/editAssignment', function(req, res, next) {
 
 router.delete('/deleteAssignment', function(req, res, next) {
   assignment.findOneAndRemove({_id: req.body.assignmentId}, function(error, doc, _assignment) {
-    res.send("success");
+    course.findByIdAndUpdate(req.body.courseId, { "$pull": { assignment: req.body.assignmentId }}, function (err, doc) {
+      res.send("success");
+    });
   });
 });
 
