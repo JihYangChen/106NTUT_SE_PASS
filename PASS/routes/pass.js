@@ -56,10 +56,11 @@ router.get('/correct/:assignmentId', function(req, res, next) {
   .populate({path: 'courses', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
-    assignment.findById(req.params.assignmentId)
-    .populate({path: 'courseid', populate: {path: 'studentAccount'}})
-    .exec( function(err, _assignment) {
-      res.render('correct', { user : _user, assignment: _assignment });
+    studentAssignment.find()
+    .where('assignmentId').equals(req.params.assignmentId)
+    .populate({path: 'studentAccount'})
+    .exec( function(err, _studentAssignment) {
+      res.render('correct', { user : _user, studentAssignment: _studentAssignment, assignmentName: req.session.curAssignmentName, courseId: req.session.curCourseId });
     })
   })
 });
@@ -87,6 +88,7 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
     .populate('courseid')
     .exec( function(err, _assignment) {
       req.session.curAssignmentId = req.params.assignmentId;
+      req.session.curAssignmentName = _assignment.name;
       var filePath = path.join(__dirname, '../public/assignment/') + req.session.user.account + '_' + req.session.curAssignmentId + '.zip';
       fs.exists(filePath, function(ex){
         if(ex){
@@ -157,12 +159,14 @@ router.post('/uploadAssignment', function(req, res, next){
       studentAssignment.findOne()
       .where('assignmentId').equals(req.session.curAssignmentId)
       .where('studentAccount').equals(req.session.user.account).exec(function(err, _studentAssignment){
-        if(err || _studentAssignment == null) next();
-        _studentAssignment.name = filePath.substring(filePath.lastIndexOf('/') + 1);
-        _studentAssignment.fileURL = fileName;
-        _studentAssignment.save(function(err){
-          console.log("Student assignment save suceess.");
-        });
+        if(err) next(err);
+        else if(_studentAssignment == null) res.send("Database update fail.");
+        else{
+          _studentAssignment.fileURL = fileName;
+          _studentAssignment.save(function(err){
+            console.log("Student assignment save suceess.");
+          });
+        }
       });
       res.redirect('/pass/assignmentList/' + req.session.curCourseId);
     }
