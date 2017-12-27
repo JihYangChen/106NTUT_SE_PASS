@@ -197,6 +197,15 @@ router.post('/createAssignment', function(req, res, next){
       else {
         assignment.create(req.body, function(err, _assignment) {
           course.findOneAndUpdate({_id: _assignment.courseid}, {"$push": { assignment: _assignment._id }}, function(err, _course) {
+            _course.studentAccount.forEach(function(student){
+              var newStudentAssignment = new studentAssignment({
+                assignmentId : _assignment._id,
+                studentAccount : student
+              });
+              newStudentAssignment.save(function(err){
+                if(err) next(err);
+              });
+            });
             res.send("success");
           });
         });
