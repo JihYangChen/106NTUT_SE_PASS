@@ -70,7 +70,7 @@
                 </table>
             </div>
 
-            <input type="submit" id="submit1" value="確認">
+            <input type="submit" id="submit" value="確認">
             <input type="submit" id="exitBtn" value="離開">
 
         </div>
@@ -79,9 +79,8 @@
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
     <script type="text/javascript">
-
         $(document).ready(function(){
-            $("#submit1").click(function(){
+            $("#submit").click(function(){
                 
                 var startDate = new Date($("#startDate").val());
                 var endDate = new Date($("#endDate").val());
@@ -99,8 +98,8 @@
                     "name" : $("#assignmentName").val(),
                     "description" : $("#assignmentDescription").val(),
                     "courseid" : "<%= course._id %>",
-                    "start" : $("#startDate").val(),
-                    "end" : $("#endDate").val(),
+                    "start" : startDate.toISOString(),
+                    "end" : endDate.toISOString(),
                     "status" : status
                 }, function(data, status){
                     if(data == "success") {

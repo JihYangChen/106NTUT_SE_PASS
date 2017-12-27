@@ -100,8 +100,17 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
   })
 });
 
-router.get('/editAssignment', function(req, res, next) {
-  res.render('editAssignment', { title: 'Express' });
+router.get('/editAssignment/:assignmentId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    assignment.findById(req.params.assignmentId)
+    .populate({path: 'courseid', populate: {path: 'studentAccount'}})
+    .exec( function(err, _assignment) {
+      res.render('editAssignment', { user : _user, assignment: _assignment });
+    })
+  })
 });
 
 router.get('/stastic', function(req, res, next) {
@@ -188,6 +197,12 @@ router.post('/createAssignment', function(req, res, next){
           });
         });
       }
+  });
+});
+
+router.patch('/editAssignment', function(req, res, next){
+  assignment.findOneAndUpdate({_id: req.body._id}, req.body, function(err, _assignment) {
+    res.send("success");
   });
 });
 
