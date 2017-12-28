@@ -17,7 +17,7 @@
 
         <div id="mainDiv">
             <nav>
-                <label id="courseName">物件導向程式設計</label>
+                <label id="courseName"><%= assignment.courseid.name %></label>
                 <ul>
                     <li>
                         <a href="/pass/courseList">離開課程</a>
@@ -35,7 +35,7 @@
             </nav>
             <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
             <div id="title">
-                <label><%= assignmentName %></label>
+                <label><%= assignment.name %></label>
                 <a href="#">
                     <label id="topButton">全部下載</label>
                 </a>
@@ -55,11 +55,12 @@
                         <tr>
                             <td><%= student.studentAccount.name %></td>
                             <td><%= student.studentAccount.account %></td>
+                            <input type="hidden" value="<%= student._id %>" class="studentAssignmentId">
                             <td>
-                                <input type="text" class="score">
+                                <input type="text" class="score scoreInput" value="<%= student.score %>">
                             </td>
                             <td>
-                                <input type="text" class="comment">
+                                <input type="text" class="comment commentInput" value="<%= student.comment %>">
                             </td>
                             <td>
                                 <% if(student.fileURL == null) { %>
@@ -76,12 +77,55 @@
                 </table>
             </div>
 
-            <input type="submit" value="送出">
+            <input type="submit" id="submit" value="送出">
 
         </div>
     </div>
 
     <%- include('footer') -%>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <script>
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                var idArray = new Array();
+                var scoreArray = new Array();
+                var commentArray = new Array();
+                var objectArray = new Array();
+                $(".scoreInput").each(function(){
+                    scoreArray.push($(this).val());
+                })
+                $(".commentInput").each(function(){
+                    commentArray.push($(this).val());
+                })
+                $(".studentAssignmentId").each(function(){
+                    idArray.push($(this).val());
+                })
+
+                for (i=0; i<idArray.length; i++)
+                    objectArray[i] = {"_id": idArray[i], "score": scoreArray[i], "comment": commentArray[i]};
+                
+                jsonArray = JSON.stringify(objectArray);
+
+                $.ajax({
+                    method: "PATCH",
+                    url: "/pass/correctAssignment",
+                    data: {
+                        data:jsonArray
+                    }
+                }).done(function(data) {
+                    if(data == "success") {
+                        alert("批改儲存成功！！");
+                        document.location.href="/pass/assignment/<%= assignment._id %>";
+                    }
+                    else
+                        alert(data);
+                }).fail(function(data) {
+                    alert(data);
+                });
+            });
+        });
+    </script>
     
 </body>
 

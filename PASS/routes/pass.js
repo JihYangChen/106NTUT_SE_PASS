@@ -56,11 +56,15 @@ router.get('/correct/:assignmentId', function(req, res, next) {
   .populate({path: 'courses', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
-    studentAssignment.find()
-    .where('assignmentId').equals(req.params.assignmentId)
-    .populate({path: 'studentAccount'})
-    .exec( function(err, _studentAssignment) {
-      res.render('correct', { user : _user, studentAssignment: _studentAssignment, assignmentName: req.session.curAssignmentName, courseId: req.session.curCourseId });
+    assignment.findById(req.params.assignmentId)
+    .populate('courseid')
+    .exec( function(err, _assignment) {
+      studentAssignment.find()
+      .where('assignmentId').equals(req.params.assignmentId)
+      .populate({path: 'studentAccount'})
+      .exec( function(err, _studentAssignment) {
+        res.render('correct', { user : _user, studentAssignment: _studentAssignment, assignment: _assignment, courseId: req.session.curCourseId });
+      })
     })
   })
 });
@@ -108,6 +112,7 @@ router.get('/editAssignment/:assignmentId', function(req, res, next) {
   .populate('classid')
   .exec( function(err, _user) {
     assignment.findById(req.params.assignmentId)
+    .populate('courseid')
     .populate({path: 'courseid', populate: {path: 'studentAccount'}})
     .exec( function(err, _assignment) {
       res.render('editAssignment', { user : _user, assignment: _assignment });
@@ -236,6 +241,31 @@ router.delete('/deleteAssignment', function(req, res, next) {
       });
     });
   });
+});
+
+router.patch('/correctAssignment', function(req, res, next) {
+  /*
+  assignment.findAndUpdate({_id: req.body._id}, req.body, function(err, _assignment) {
+    res.send("success");
+  });
+  */
+
+  
+  var jsonArray = JSON.parse(req.body.data);
+
+  jsonArray.forEach(function(_studentAssignment) {
+    console.log(_studentAssignment);
+    studentAssignment.findOneAndUpdate({_id: _studentAssignment._id}, _studentAssignment, function(err, _assignment) {
+      console.log(_assignment);
+    });
+  });
+
+  setTimeout(function() {
+    res.send("success");
+  }, 2000);
+
+
+
 });
 
 module.exports = router;
