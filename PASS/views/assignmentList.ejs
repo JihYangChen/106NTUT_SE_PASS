@@ -146,11 +146,6 @@
                 
                 <% if (course.assignment.length) { %>
                     <div id="assignmentHeader">
-                        <div id="assignmentScore">
-                            <label>作業成績</label>
-                            <hr>
-                        </div>
-
                         <div id="assignmentStatus">
                             <label>狀態</label>
                             <hr>
@@ -174,7 +169,7 @@
                             </div>
                         </a>
     
-                        <div class="status">
+                        <div class="status singleStatus">
                             <% if(assignment.status == "0"){ %>
                                 <label class="haventStart">尚未開始</label>
                             <%} else if(assignment.status == "1"){ %>
@@ -184,9 +179,6 @@
                             <% } %>
                         </div>
     
-                        <div class="score">
-                            <label>20</label>
-                        </div>
                         <% if (index != assignments.length - 1) {%>
                             <hr>
                         <% } %>

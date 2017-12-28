@@ -123,6 +123,13 @@
                 <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
                 <div id="title">
                     <label><%= assignment.name %></label>
+                    <% if(assignment.status == "0"){ %>
+                        <label  id="status" class="haventStart">尚未開始</label>
+                    <%} else if(assignment.status == "1"){ %>
+                        <label  id="status" class="proceeding">進行中</label>
+                    <%} else if(assignment.status == "2"){ %>
+                        <label  id="status" class="hasDone">已結束</label>
+                    <% } %>
                 </div>
 
                 <div id="assignmentDiv">
@@ -138,17 +145,12 @@
 
                         <tr>
                             <th>
-                                作業狀態
+                                作業成績
                             </th>
                             <td class="status">
-                                <% if(assignment.status == "0"){ %>
-                                    <label class="haventStart">尚未開始</label>
-                                <%} else if(assignment.status == "1"){ %>
-                                    <label class="proceeding">進行中</label>
-                                <%} else if(assignment.status == "2"){ %>
-                                    <label class="hasDone">已結束</label>
-                                <% } %>
+                                <%= score %><%= comment %>
                             </td>
+                            
                         </tr>
 
                         <tr>

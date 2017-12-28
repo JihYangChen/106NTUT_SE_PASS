@@ -95,12 +95,30 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
       req.session.curAssignmentName = _assignment.name;
       var filePath = path.join(__dirname, '../public/assignment/') + req.session.user.account + '_' + req.session.curAssignmentId + '.zip';
       fs.exists(filePath, function(ex){
-        if(ex){
-          res.render('assignment', { user : _user, assignment: _assignment, fileName: req.session.user.account + '_' + req.session.curAssignmentId + '.zip' });
-        }
-        else{
-          res.render('assignment', { user : _user, assignment: _assignment, fileName: "" });
-        }
+        studentAssignment.findOne({studentAccount: req.session.user._id, assignmentId: req.session.curAssignmentId}, function(err, _studentAssignment) {
+          console.log(_studentAssignment);
+          var _score = null, _comment="";
+          
+          if(_studentAssignment != null) {
+            if(_studentAssignment.score == null)
+              _score = "-";
+            else{
+              _score = _studentAssignment.score;
+              if(_studentAssignment.comment == "")
+                _comment = " 分" + _studentAssignment.comment;
+              else
+                _comment = " 分，" + _studentAssignment.comment;
+            }
+          }
+
+          if(ex){
+            res.render('assignment', { user : _user, assignment: _assignment, score: _score, comment: _comment, 
+                                        fileName: req.session.user.account + '_' + req.session.curAssignmentId + '.zip' });
+          }
+          else{
+            res.render('assignment', { user : _user, assignment: _assignment, score: _score, comment: _comment, fileName: "" });
+          }
+        });
       });
     })
   })
@@ -244,13 +262,6 @@ router.delete('/deleteAssignment', function(req, res, next) {
 });
 
 router.patch('/correctAssignment', function(req, res, next) {
-  /*
-  assignment.findAndUpdate({_id: req.body._id}, req.body, function(err, _assignment) {
-    res.send("success");
-  });
-  */
-
-  
   var jsonArray = JSON.parse(req.body.data);
 
   jsonArray.forEach(function(_studentAssignment) {
@@ -263,9 +274,6 @@ router.patch('/correctAssignment', function(req, res, next) {
   setTimeout(function() {
     res.send("success");
   }, 2000);
-
-
-
 });
 
 module.exports = router;

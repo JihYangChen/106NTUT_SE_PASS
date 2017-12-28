@@ -72,6 +72,11 @@
     text-align: center;
 }
 
+.singleStatus {
+    float: right;
+    margin-right: 150px;
+}
+
 .haventStart {
     border: 2px solid#DE8244;
     color: #DE8244;
@@ -133,20 +138,10 @@
     font-weight: 500;
     width: 14%;
     float: right;
+    margin-right: 112.5px;
     display: inline-block;
 }
 
 #assignmentHeader hr {
     border-top: 1px solid #a1a1a1;
-}
-
-#assignmentScore {
-    margin-left: 8.5%;
-}
-
-.score {
-    font-size: 25px;
-    vertical-align: top;
-    margin-top: 39px;
-    margin-left: 15%; 
 }
