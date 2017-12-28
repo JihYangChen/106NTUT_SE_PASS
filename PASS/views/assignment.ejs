@@ -15,8 +15,7 @@
     <div class="bodyDiv">
 
         <%- include('teacherLeftInfoBanner') -%>
-        <!-- Determine identity of user is TA or student by course id == ta course id.!!!!!!!! -->
-        <% if( user.userType == "teacher"){ %>
+        <% if( user.userType == "teacher" || assignment.courseid.TA.includes(user._id)){ %>
             <div id="mainDiv">
                 <nav>
                     <label id="courseName"><%= assignment.courseid.name %></label>
@@ -25,7 +24,7 @@
                             <a href="/pass/courseList">離開課程</a>
                         </li>
                         <li>
-                            <a href="/pass/memberList">成員列表</a>
+                            <a href="/pass/memberList/<%= assignment.courseid._id %>">成員列表</a>
                         </li>
                         <li>
                             <a href="/pass/stastic">成績統計</a>

@@ -16,7 +16,27 @@
                 </div>
 
                 <div id="courseListDiv">
-
+                    <% user.TACourse.forEach(function(TACourse, index, TACourses) { %>
+                        <a href="/pass/assignmentList/<%= TACourse._id %>" >
+                            <div class="course">
+                                <img src="/image/course.png" alt="course">
+                                <div class="courseInfo">
+                                    <label class="courseSemester">106學年度 上學期</label>
+                                    <br>
+                                    <label class="courseName"><%= TACourse.name %></label>
+                                    <br>
+                                    <label class="courseClass"><%= TACourse.classid.name %></label>
+                                </div>
+                                <label class="taLabel">助教</label>
+                            </div>
+                        </a>
+                        <% if (index != TACourses.length - 1) {%>
+                            <hr>
+                        <% } %>
+                    <% }) %>
+                    <% if (user.TACourse.length) {%>
+                        <hr>
+                    <% } %>
                     <% user.courses.forEach(function(course, index, courses) { %>
                         <a href="/pass/assignmentList/<%= course._id %>" >
                             <div class="course">

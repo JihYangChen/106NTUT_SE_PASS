@@ -107,7 +107,19 @@
         <hr>
 
         <div id="courseShortcutListDiv">
+             <% user.TACourse.forEach(function(TACourse, index, TACourses) { %>
+                <a href="/pass/assignmentList/<%= TACourse._id %>">
+                    <div class="courseShortcutDiv">
+                        <label><%= TACourse.name %></label>
+                        <br>
+                        <label>106學年度 上學期</label>
+                        <label><%= TACourse.classid.name %></label>
+                        <label class="leftTALabel">助教</label>
+                    </div>
+                </a>
 
+                <hr>
+            <% }) %>
             <% user.courses.forEach(function(course) { %>
                 <a href="/pass/assignmentList/<%= course._id %>">
                     <div class="courseShortcutDiv">

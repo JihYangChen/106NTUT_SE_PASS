@@ -58,3 +58,18 @@
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.taLabel {
+    display: inline-block;
+    width: 50px;
+    padding: 2px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid#DE8244;
+    color: #DE8244;
+    float: right;
+    margin-right: 25px;
+    vertical-align: top;
+    margin-top: 30px;
+}

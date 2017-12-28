@@ -11,6 +11,7 @@ var userSchema = new Schema({
     website : { type : String },
     classid : { type: String, ref: 'department' },
     userType : { type: String, required: true },
+    TACourse : [{ type: String, ref: 'course'}],
     courses: [{ type: String, ref: 'course' }]
 }, { collection: 'user' });
 

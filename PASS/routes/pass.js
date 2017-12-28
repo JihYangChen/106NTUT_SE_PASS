@@ -14,7 +14,7 @@ var formidable = require('formidable');
 
 router.use(function (req, res, next) {
     if(req.session.user == null){
-        res.redirect('/');
+      res.redirect('/');
     } else {
       next();
     }
@@ -27,6 +27,7 @@ router.get('/course', function(req, res, next) {
 router.get('/courseList', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     res.render('courseList', { user : _user });
@@ -36,6 +37,7 @@ router.get('/courseList', function(req, res, next) {
 router.get('/assignmentList/:courseId', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     course.findById(req.params.courseId)
@@ -47,13 +49,24 @@ router.get('/assignmentList/:courseId', function(req, res, next) {
   })
 });
 
-router.get('/memberList', function(req, res, next) {
-  res.render('memberList', { title: 'Express' });
+router.get('/memberList/:courseId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    course.findById(req.params.courseId)
+    .populate('assignment')
+    .exec( function(err, _course) {
+      res.render('memberList', { user : _user, course: _course });
+    })
+  })
 });
 
 router.get('/correct/:assignmentId', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     assignment.findById(req.params.assignmentId)
@@ -72,6 +85,7 @@ router.get('/correct/:assignmentId', function(req, res, next) {
 router.get('/createAssignment/:courseId', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     course.findById(req.params.courseId)
@@ -86,6 +100,7 @@ router.get('/createAssignment/:courseId', function(req, res, next) {
 router.get('/assignment/:assignmentId', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     assignment.findById(req.params.assignmentId)
@@ -96,7 +111,6 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
       var filePath = path.join(__dirname, '../public/assignment/') + req.session.user.account + '_' + req.session.curAssignmentId + '.zip';
       fs.exists(filePath, function(ex){
         studentAssignment.findOne({studentAccount: req.session.user._id, assignmentId: req.session.curAssignmentId}, function(err, _studentAssignment) {
-          console.log(_studentAssignment);
           var _score = null, _comment="";
           
           if(_studentAssignment != null) {
@@ -127,6 +141,7 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
 router.get('/editAssignment/:assignmentId', function(req, res, next) {
   user.findById(req.session.user._id)
   .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
   .populate('classid')
   .exec( function(err, _user) {
     assignment.findById(req.params.assignmentId)
@@ -143,6 +158,7 @@ router.get('/stastic', function(req, res, next) {
 });
 
 router.post('/uploadAssignment', function(req, res, next){
+  
   var form = new formidable.IncomingForm();
   form.maxFieldsSize = 5 * 1024 * 1024;
   form.keepExtensions = true;
