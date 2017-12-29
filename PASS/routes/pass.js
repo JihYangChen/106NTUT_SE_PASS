@@ -11,6 +11,7 @@ var path = require('path');
 var fs = require('fs');
 var util = require('util');
 var formidable = require('formidable');
+var archiver = require('archiver');
 
 router.use(function (req, res, next) {
     if(req.session.user == null){
@@ -109,7 +110,7 @@ router.get('/assignment/:assignmentId', function(req, res, next) {
     .exec( function(err, _assignment) {
       req.session.curAssignmentId = req.params.assignmentId;
       req.session.curAssignmentName = _assignment.name;
-      var filePath = path.join(__dirname, '../public/assignment/') + req.session.user.account + '_' + req.session.curAssignmentId + '.zip';
+      var filePath = path.join(__dirname, '../public/assignment/' + req.session.curAssignmentId + '/') + req.session.user.account + '_' + req.session.curAssignmentId + '.zip';
       fs.exists(filePath, function(ex){
         studentAssignment.findOne({studentAccount: req.session.user._id, assignmentId: req.session.curAssignmentId}, function(err, _studentAssignment) {
           var _score = null, _comment="";
@@ -179,7 +180,7 @@ router.post('/uploadAssignment', function(req, res, next){
     var filePath = '';
     if(file.selectFile) filePath = file.selectFile.path;
    
-    var targetDir = path.join(__dirname, '../public/assignment');
+    var targetDir = path.join(__dirname, '../public/assignment/' + req.session.curAssignmentId);
     if (!fs.existsSync(targetDir)) {
         fs.mkdir(targetDir);
     }
@@ -232,7 +233,7 @@ router.post('/uploadAssignment', function(req, res, next){
 });
 
 router.get('/assignment/download/:fileName', function(req, res, next) {
-  var filePath = path.join(__dirname, '../public/assignment/') + req.params.fileName;
+  var filePath = path.join(__dirname, '../public/assignment/'+ req.session.curAssignmentId + '/') + req.params.fileName;
   res.download(filePath, filePath, function(err){
     if (err) {
       next(err);
@@ -240,6 +241,35 @@ router.get('/assignment/download/:fileName', function(req, res, next) {
       res.end();
     }
   });
+});
+
+router.get('/assignment/downloadAll/:assignmentId', function(req, res, next){
+  var targetDir = path.join(__dirname, '../public/assignment/');
+  var targetFile = targetDir + '/' + req.params.assignmentId + '.zip';
+  var output = fs.createWriteStream(targetFile);
+  var archive = archiver('zip');
+
+  archive.on('error', function(err){
+      throw err;
+  });
+  
+  output.on('close', function() {
+    console.log(archive.pointer() + ' total bytes');
+    console.log('archiver has been finalized and the output file descriptor has closed.');
+    res.download(targetFile , targetFile, function(err){
+      if (err) next(err);
+      else {
+        fs.unlink(targetFile, function(err){
+          if(err) next(err);
+          res.end();
+        });
+      }
+    });
+  });
+
+  archive.pipe(output);
+  archive.directory(targetDir + '/' + req.session.curAssignmentId, false);
+  archive.finalize();
 });
 
 router.post('/createAssignment', function(req, res, next) {
