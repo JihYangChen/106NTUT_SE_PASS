@@ -337,26 +337,19 @@ router.get('/statistic/getAvgScores/:courseId', function(req, res, next) {
   course.findById(req.params.courseId)
   .populate('assignment')
   .exec(function(err, _course) {
-    _course.assignment.forEach(function(assignment, index, assignments) {
-      studentAssignment.find({assignmentId: assignment._id}, function(err, _studentAssignments){
+    for (let j=0; j<_course.assignment.length; j++) {
+      studentAssignment.find({assignmentId: _course.assignment[j]._id}, function(err, _studentAssignments){
         var totalScore = 0;
         for(var i in _studentAssignments){
           totalScore += _studentAssignments[i].score;
         }
 
-        avgScores[index] = parseFloat((totalScore / _studentAssignments.length).toFixed(2));
-        
-        if (avgScores.length == assignments.length){
-          var isNull = false;
-          for(var i=0; i< assignments.length;i++){
-            if (avgScores[i] == null)
-              isNull = true;
-          }
-          if (!isNull)
-            res.send(avgScores);
-        }
+        avgScores[j] = parseFloat((totalScore / _studentAssignments.length).toFixed(2));
+
+        if (avgScores.length == _course.assignment.length)
+          res.send(avgScores);
       });
-    });
+    }
   })
 });
 

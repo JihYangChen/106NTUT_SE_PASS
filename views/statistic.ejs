@@ -61,9 +61,7 @@
 
         function drawScoreStatistic() {
             var xAxisLabels = [];
-            console.log('1');
             getAvgScores(function(avgScores) {
-                console.log('2');
                 for (i=0; i<avgScores.length; i++)
                     xAxisLabels[i] = 'HW' + (i+1);
 
@@ -72,23 +70,18 @@
                     data: avgScores
                 }];
 
-                console.log(avgScores);
-
                 draw(xAxisLabels, series);
             });
         }
 
         
         function getAvgScores(onSuccess) {
-            console.log('3');
             $.ajax({
                 method: "GET",
                 async:false,
                 url: "/pass/statistic/getAvgScores/<%= course._id %>",
             }).done(function(data) {
-                console.log('4');
                 onSuccess(data);
-                console.log('5');
             }).fail(function(data) {
                 alert("資料取得失敗！");
             });
