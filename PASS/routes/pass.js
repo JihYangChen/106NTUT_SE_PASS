@@ -57,8 +57,10 @@ router.get('/memberList/:courseId', function(req, res, next) {
   .populate('classid')
   .exec( function(err, _user) {
     course.findById(req.params.courseId)
-    .populate('assignment')
+    .populate({path: 'TA', populate: {path: 'classid'}})
+    .populate({path: 'studentAccount', populate: {path: 'classid'}})
     .exec( function(err, _course) {
+      console.log(_course);
       res.render('memberList', { user : _user, course: _course });
     })
   })
