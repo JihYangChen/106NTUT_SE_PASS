@@ -26,7 +26,7 @@
                         <a href="/pass/memberList/<%= assignment.courseid._id%>">成員列表</a>
                     </li>
                     <li>
-                        <a href="/pass/stastic">成績統計</a>
+                        <a href="/pass/statistic/<%= assignment.courseid._id %>">成績統計</a>
                     </li>
                     <li>
                         <a href="/pass/assignmentList/<%= assignment.courseid._id %>">作業管理</a>
@@ -71,7 +71,7 @@
             </div>
 
             <input type="button" id="submit" value="確認" class="whiteButton">
-            <input type="button" id="secondBtn" class="whiteButton" onClick="location.href='/pass/assignment/<%= assignment._id %>'" value="離開">
+            <input type="button" id="secondBtn" class="whiteButton" onClick="history.back()" value="離開">
 
         </div>
     </div>

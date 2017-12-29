@@ -1,0 +1,145 @@
+<html lang="en">
+
+<head>
+    <title>PASS</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/wholePageStyle.css">
+    <link rel="stylesheet" href="/stylesheets/leftInfoBanner.css">
+    <link rel="stylesheet" href="/stylesheets/mainDiv.css">
+    <link rel="stylesheet" href="/stylesheets/statistic.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+</head>
+
+<body>
+    <div class="bodyDiv">
+
+        <%- include('teacherLeftInfoBanner') -%>
+
+        <div id="mainDiv">
+            <nav>
+                <label id="courseName">物件導向程式設計</label>
+                <ul>
+                    <li>
+                        <a href="/pass/courseList">離開課程</a>
+                    </li>
+                    <li>
+                        <a href="/pass/memberList/<%= course._id%>">成員列表</a>
+                    </li>
+                    <li>
+                        <a href="/pass/statistic/<%= course._id %>">成績統計</a>
+                    </li>
+                    <li>
+                        <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                    </li>
+                </ul>
+            </nav>
+            <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+            <div id="title">
+                <label>成績統計</label>
+                <div id="subMenu">
+                    <a href="#" onClick="drawScoreStatistic()"><label class="submenuButton firstSubButton" id="onFocus">成績統計</label></a>
+                    <a href="#" onClick="drawScoreStatistic()"><label class="submenuButton">繳交統計</label></a>
+                </div>
+            </div>
+
+            <div id="stasticDiv">
+                <div id="stasticDiagramDiv"></div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') -%>
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <script>
+        $(document).ready(function() {
+            drawScoreStatistic();
+        });
+
+        function drawScoreStatistic() {
+            var xAxisLabels = [];
+            var avgScores = getAvgScores();
+            
+            for (i=0; i<avgScores.length; i++)
+                xAxisLabels[i] = 'HW' + (i+1);
+
+            series = [{
+                name: 'Average score',
+                data: avgScores
+            }];
+            
+            draw(xAxisLabels, series);
+        }
+
+        function getAvgScores() {
+            var retrunArray;
+            $.ajax({
+                method: "GET",
+                async:false,
+                url: "/pass/statistic/getAvgScores/<%= course._id %>",
+            }).done(function(data) {
+                retrunData =  data;
+            }).fail(function(data) {
+                alert("資料取得失敗！");
+            });
+            return retrunData;
+        }
+
+        function draw(xAxisLabels, seriesData) {
+            Highcharts.chart('stasticDiagramDiv', {
+                title: {
+                    text: ''
+                },
+
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: xAxisLabels
+                },
+                yAxis: {
+                    title: {
+                        text: 'Score'
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+
+                plotOptions: {
+                    series: {
+                        label: {
+                        connectorAllowed: false
+                        },
+                    }
+                },
+
+                series: seriesData,
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                        maxWidth: 500
+                        },
+                        chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                        }
+                    }]
+                }
+            });
+        }
+        
+    </script>
+
+</body>
+
+</html>

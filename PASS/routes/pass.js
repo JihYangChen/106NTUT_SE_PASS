@@ -59,7 +59,6 @@ router.get('/memberList/:courseId', function(req, res, next) {
     .populate({path: 'TA', populate: {path: 'classid'}})
     .populate({path: 'studentAccount', populate: {path: 'classid'}})
     .exec( function(err, _course) {
-      console.log(_course);
       res.render('memberList', { user : _user, course: _course });
     })
   })
@@ -155,8 +154,18 @@ router.get('/editAssignment/:assignmentId', function(req, res, next) {
   })
 });
 
-router.get('/stastic', function(req, res, next) {
-  res.render('stastic', { title: 'Express' });
+router.get('/statistic/:courseId', function(req, res, next) {
+  user.findById(req.session.user._id)
+  .populate({path: 'courses', populate: {path: 'classid'}})
+  .populate({path: 'TACourse', populate: {path: 'classid'}})
+  .populate('classid')
+  .exec( function(err, _user) {
+    course.findById(req.params.courseId)
+    .exec( function(err, _course) {
+      req.session.curCourseId = req.params.courseId;
+      res.render('statistic', { user : _user, course: _course });
+    })
+  })
 });
 
 router.post('/uploadAssignment', function(req, res, next){
@@ -283,9 +292,7 @@ router.patch('/correctAssignment', function(req, res, next) {
   var jsonArray = JSON.parse(req.body.data);
 
   jsonArray.forEach(function(_studentAssignment) {
-    console.log(_studentAssignment);
     studentAssignment.findOneAndUpdate({_id: _studentAssignment._id}, _studentAssignment, function(err, _assignment) {
-      console.log(_assignment);
     });
   });
 
@@ -293,6 +300,28 @@ router.patch('/correctAssignment', function(req, res, next) {
     res.send("success");
   }, 2000);
 });
+
+router.get('/statistic/getAvgScores/:courseId', function(req, res, next) {
+  var avgScores = [];
+
+  course.findById(req.params.courseId)
+  .populate('assignment')
+  .exec(function(err, _course) {
+    _course.assignment.forEach(function(assignment, index, assignments) {
+      studentAssignment.find({assignmentId: assignment._id}, function(err, _studentAssignments){
+        var totalScore = 0;
+        for(var i in _studentAssignments) 
+          totalScore += _studentAssignments[i].score;
+
+        avgScores[index] = totalScore / _studentAssignments.length;
+        
+        if (avgScores.length == assignments.length)
+          res.send(avgScores);
+      });
+    });
+  })
+});
+
 
 module.exports = router;
 

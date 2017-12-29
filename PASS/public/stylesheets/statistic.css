@@ -4,17 +4,15 @@
 }
 
 #stasticDiagramDiv {
-    width: 88%;
-    float: left;
-}
-
-#stasticDiagramDiv img {
     width: 100%;
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
 }
 
 #submenu {
-    width:10%;
     float: right;
+    margin-right: 20px;
 }
 
 .submenuButton {
@@ -28,8 +26,7 @@
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid#429488;
-    margin-top: 30px;
-    margin-left: 35%;
+    margin-left: 10px;
 }
 
 .submenuButton:hover {
@@ -39,7 +36,7 @@
 }
 
 .firstSubButton {
-    margin-top: 10px;
+    margin-left: 0px;
 }
 
 #onFocus {
