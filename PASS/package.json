@@ -15,7 +15,8 @@
     "serve-favicon": "~2.4.5",
     "cookie-session": "*",
     "mongoose": "*",
-    "formidable": "latest"
+    "formidable": "latest",
+    "archiver": "latest"
   },
   "devDependencies": {
     "nodemon": "^1.14.1"
