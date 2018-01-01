@@ -337,6 +337,7 @@ router.get('/statistic/getAvgScores/:courseId', function(req, res, next) {
   course.findById(req.params.courseId)
   .populate('assignment')
   .exec(function(err, _course) {
+    var findCount = 0;
     for (let j=0; j<_course.assignment.length; j++) {
       studentAssignment.find({assignmentId: _course.assignment[j]._id}, function(err, _studentAssignments){
         var totalScore = 0;
@@ -345,9 +346,30 @@ router.get('/statistic/getAvgScores/:courseId', function(req, res, next) {
         }
 
         avgScores[j] = parseFloat((totalScore / _studentAssignments.length).toFixed(2));
+        findCount ++;
 
-        if (avgScores.length == _course.assignment.length)
+        if (findCount == _course.assignment.length)
           res.send(avgScores);
+      });
+    }
+  })
+});
+
+router.get('/statistic/getHangin/:courseId', function(req, res, next) {
+  var hanginCount = [];
+
+  course.findById(req.params.courseId)
+  .populate('assignment')
+  .exec(function(err, _course) {
+    var findCount = 0;
+    for (let j=0; j<_course.assignment.length; j++) {
+      assignment.findById(_course.assignment[j]._id, function(err, _assignment){
+
+        hanginCount[j] = _assignment.hanginCount;
+        findCount ++;
+
+        if (findCount == _course.assignment.length)
+          res.send(hanginCount);
       });
     }
   })

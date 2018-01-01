@@ -37,8 +37,8 @@
             <div id="title">
                 <label>成績統計</label>
                 <div id="subMenu">
-                    <a onClick="drawScoreStatistic()"><label class="submenuButton firstSubButton" id="onFocus">成績統計</label></a>
-                    <a onClick="drawHangInStatistic()"><label class="submenuButton">繳交統計</label></a>
+                    <a onClick="drawScoreStatistic()"><label class="submenuButton firstSubButton onFocus">成績統計</label></a>
+                    <a onClick="drawHanginStatistic()"><label class="submenuButton">繳交統計</label></a>
                 </div>
             </div>
 
@@ -59,6 +59,26 @@
             drawScoreStatistic();
         });
 
+        $(".submenuButton").click(function(){
+            $(".submenuButton").removeClass("onFocus");
+            $(this).addClass("onFocus");
+        });
+
+        function drawHanginStatistic() {
+            var xAxisLabels = [];
+            getHangin(function(hanginCount) {
+                for (i=0; i<hanginCount.length; i++)
+                    xAxisLabels[i] = 'HW' + (i+1);
+
+                series = [{
+                    name: 'Hang In Count',
+                    data: hanginCount
+                }];
+                
+                draw(xAxisLabels, series);
+            });
+        }
+
         function drawScoreStatistic() {
             var xAxisLabels = [];
             getAvgScores(function(avgScores) {
@@ -69,17 +89,28 @@
                     name: 'Average score',
                     data: avgScores
                 }];
-
+                
                 draw(xAxisLabels, series);
             });
         }
-
         
         function getAvgScores(onSuccess) {
             $.ajax({
                 method: "GET",
                 async:false,
                 url: "/pass/statistic/getAvgScores/<%= course._id %>",
+            }).done(function(data) {
+                onSuccess(data);
+            }).fail(function(data) {
+                alert("資料取得失敗！");
+            });
+        }
+
+        function getHangin(onSuccess) {
+            $.ajax({
+                method: "GET",
+                async:false,
+                url: "/pass/statistic/getHangin/<%= course._id %>",
             }).done(function(data) {
                 onSuccess(data);
             }).fail(function(data) {
@@ -100,6 +131,7 @@
                     categories: xAxisLabels
                 },
                 yAxis: {
+                    allowDecimals: false,
                     title: {
                         text: 'Score'
                     }

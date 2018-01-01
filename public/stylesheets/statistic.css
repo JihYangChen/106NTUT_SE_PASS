@@ -39,12 +39,12 @@
     margin-left: 0px;
 }
 
-#onFocus {
+.onFocus {
     background-color: #429488;
     color: white;
 }
 
-#onFocus {
-    background-color: #429488;
-    color: white;
+.notFocus {
+    background-color: white;
+    color: #429488;
 }
