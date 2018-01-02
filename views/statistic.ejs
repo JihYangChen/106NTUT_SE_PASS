@@ -14,38 +14,68 @@
     <div class="bodyDiv">
 
         <%- include('teacherLeftInfoBanner') -%>
+        <% if( user.userType == "teacher" || course.TA.includes(user._id)){ %>
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= course._id.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/memberList/<%= course._id%>">成員列表</a>
+                        </li>
+                        <li>
+                            <a href="/pass/statistic/<%= course._id %>">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label>成績統計</label>
+                    <div id="subMenu">
+                        <a onClick="drawScoreStatistic()"><label class="submenuButton firstSubButton onFocus">成績統計</label></a>
+                        <a onClick="drawHanginStatistic()"><label class="submenuButton">繳交統計</label></a>
+                    </div>
+                </div>
 
-        <div id="mainDiv">
-            <nav>
-                <label id="courseName">物件導向程式設計</label>
-                <ul>
-                    <li>
-                        <a href="/pass/courseList">離開課程</a>
-                    </li>
-                    <li>
-                        <a href="/pass/memberList/<%= course._id%>">成員列表</a>
-                    </li>
-                    <li>
-                        <a href="/pass/statistic/<%= course._id %>">成績統計</a>
-                    </li>
-                    <li>
-                        <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
-                    </li>
-                </ul>
-            </nav>
-            <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
-            <div id="title">
-                <label>成績統計</label>
-                <div id="subMenu">
-                    <a onClick="drawScoreStatistic()"><label class="submenuButton firstSubButton onFocus">成績統計</label></a>
-                    <a onClick="drawHanginStatistic()"><label class="submenuButton">繳交統計</label></a>
+                <div id="stasticDiv">
+                    <div id="stasticDiagramDiv"></div>
                 </div>
             </div>
+        <% } else { %>
+            <div id="mainDiv">
+                <nav>
+                    <label id="courseName"><%= course.name %></label>
+                    <ul>
+                        <li>
+                            <a href="/pass/courseList">離開課程</a>
+                        </li>
+                        <li>
+                            <a href="/pass/statistic/<%= course._id %>">成績統計</a>
+                        </li>
+                        <li>
+                            <a href="/pass/assignmentList/<%= course._id %>">作業管理</a>
+                        </li>
+                    </ul>
+                </nav>
+                <img src="/image/topBannerImg1.png" alt="topBannerImg" id="topBannerImg">
+                <div id="title">
+                    <label>成績統計</label>
+                    <div id="subMenu">
+                        <a onClick="drawPersonalScoreStatistic()"><label class="submenuButton firstSubButton onFocus">成績統計</label></a>
+                        <a onClick="drawHanginStatistic()"><label class="submenuButton">繳交統計</label></a>
+                    </div>
+                </div>
 
-            <div id="stasticDiv">
-                <div id="stasticDiagramDiv"></div>
+                <div id="stasticDiv">
+                    <div id="stasticDiagramDiv"></div>
+                </div>
             </div>
-        </div>
+        <% } %>
     </div>
 
     <%- include('footer') -%>
@@ -56,13 +86,31 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
     <script>
         $(document).ready(function() {
-            drawScoreStatistic();
+            if( ("<%= user.userType %>" == "teacher") || <%=course.TA.includes(user._id)%>)
+                drawScoreStatistic();
+            else
+                drawPersonalScoreStatistic();
         });
 
         $(".submenuButton").click(function(){
             $(".submenuButton").removeClass("onFocus");
             $(this).addClass("onFocus");
         });
+
+        function drawScoreStatistic() {
+            var xAxisLabels = [];
+            getAvgScores(function(avgScores) {
+                for (i=0; i<avgScores.length; i++)
+                    xAxisLabels[i] = 'HW' + (i+1);
+
+                series = [{
+                    name: 'Average score',
+                    data: avgScores
+                }];
+                
+                draw(xAxisLabels, series);
+            });
+        }
 
         function drawHanginStatistic() {
             var xAxisLabels = [];
@@ -79,18 +127,23 @@
             });
         }
 
-        function drawScoreStatistic() {
+        function drawPersonalScoreStatistic() {
             var xAxisLabels = [];
             getAvgScores(function(avgScores) {
-                for (i=0; i<avgScores.length; i++)
-                    xAxisLabels[i] = 'HW' + (i+1);
+                getPersonalScores(function(personalScores) {
+                    for (i=0; i<avgScores.length; i++)
+                        xAxisLabels[i] = 'HW' + (i+1);
 
-                series = [{
-                    name: 'Average score',
-                    data: avgScores
-                }];
-                
-                draw(xAxisLabels, series);
+                    series = [{
+                        name: 'My score',
+                        data: personalScores
+                    }, {
+                        name: 'Average score',
+                        data: avgScores
+                    }];
+                    
+                    draw(xAxisLabels, series);
+                });
             });
         }
         
@@ -111,6 +164,18 @@
                 method: "GET",
                 async:false,
                 url: "/pass/statistic/getHangin/<%= course._id %>",
+            }).done(function(data) {
+                onSuccess(data);
+            }).fail(function(data) {
+                alert("資料取得失敗！");
+            });
+        }
+
+        function getPersonalScores(onSuccess) {
+            $.ajax({
+                method: "GET",
+                async:false,
+                url: "/pass/statistic/getPersonalScores/<%= course._id %>/<%= user._id %>",
             }).done(function(data) {
                 onSuccess(data);
             }).fail(function(data) {

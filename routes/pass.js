@@ -355,6 +355,28 @@ router.get('/statistic/getAvgScores/:courseId', function(req, res, next) {
   })
 });
 
+router.get('/statistic/getPersonalScores/:courseId/:studentId', function(req, res, next) {
+  var personalScores = [];
+
+  course.findById(req.params.courseId)
+  .populate('assignment')
+  .exec(function(err, _course) {
+    var findCount = 0;
+    for (let j=0; j<_course.assignment.length; j++) {
+      studentAssignment.find({assignmentId: _course.assignment[j]._id, studentAccount: req.params.studentId}, function(err, _studentAssignments){
+        if (_studentAssignments[0].score)
+          personalScores[j] = _studentAssignments[0].score;
+        else
+          personalScores[j] = 0;
+        findCount ++;
+
+        if (findCount == _course.assignment.length)
+          res.send(personalScores);
+      });
+    }
+  })
+});
+
 router.get('/statistic/getHangin/:courseId', function(req, res, next) {
   var hanginCount = [];
 
